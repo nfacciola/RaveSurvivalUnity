@@ -1,17 +1,40 @@
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using Mirror.Transports.Encryption;
+using Edgegap;
+using System.Collections;
 
 public class SteamLobby : MonoBehaviour
 {
+    public static SteamLobby Instance;
     public GameObject hostButton = null;
+    public ulong lobbyID;
     private NetworkManager networkManager;
+    public PanelSwapper panelSwapper;
 
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> lobbyEntered;
+    protected Callback<LobbyChatUpdate_t> lobbyChatUpdate;
+
 
     private const string HostAddressKey = "HostAddress";
+
+    void Awake()
+    {
+        Debug.Log("SteamLobby Awake()");
+        if (Instance == null)
+        {
+            Instance = this;
+            Debug.Log("SteamLobby Instance assigned");
+        }
+        else if (Instance != this)
+        {
+            Debug.LogWarning("Duplicate SteamLobby, destroying this one.");
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -21,13 +44,15 @@ public class SteamLobby : MonoBehaviour
             Debug.LogError("Steam is not initialized. Make sure to run this in the Steam environment.");
             return;
         }
+
+        Debug.Log("SteamLobby Start() running. IsServer: " + NetworkServer.active + ", IsClient: " + NetworkClient.active);
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
+        //lobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnLobbyChatUpdate);
     }
 
     public void HostLobby(){
-        hostButton.SetActive(false);
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
     }
 
@@ -43,12 +68,28 @@ public class SteamLobby : MonoBehaviour
         networkManager.StartHost();
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
+        lobbyID = callback.m_ulSteamIDLobby;
+        LobbyUIManager.Instance.UpdatePlayerNames();
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
         Debug.Log("Join request received for lobby: " + callback.m_steamIDLobby);
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
+    }
+
+    // void OnLobbyChatUpdate(LobbyChatUpdate_t callback)
+    // {
+    //     if (callback.m_ulSteamIDLobby != lobbyID) return; // Ignore if not the current lobby
+
+    //     Debug.Log("LobbyChatUpdate received on CLIENT");
+    //     StartCoroutine(DelayedNameUpdate(0.5f));
+    // }
+
+    private IEnumerator DelayedNameUpdate(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        LobbyUIManager.Instance?.UpdatePlayerNames();
     }
 
     void OnLobbyEntered(LobbyEnter_t callback)
@@ -62,6 +103,8 @@ public class SteamLobby : MonoBehaviour
         networkManager.networkAddress = hostAddress;
         Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby);
         networkManager.StartClient();
-        hostButton.SetActive(false);
+        panelSwapper.SetActivePanel(1); // Assuming 1 is the index for the lobby panel
+        StartCoroutine(DelayedNameUpdate(0.5f));
+        LobbyUIManager.Instance.UpdatePlayerNames();
     }
 }
