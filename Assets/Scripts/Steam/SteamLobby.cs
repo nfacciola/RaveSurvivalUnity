@@ -80,10 +80,27 @@ public class SteamLobby : MonoBehaviour
 
     void OnLobbyChatUpdate(LobbyChatUpdate_t callback)
     {
-        if (callback.m_ulSteamIDLobby != lobbyID) return; // Ignore if not the current lobby
+        if (callback.m_ulSteamIDLobby != lobbyID) return;
 
-        Debug.Log("LobbyChatUpdate received on CLIENT");
+        EChatMemberStateChange stateChange = (EChatMemberStateChange)callback.m_rgfChatMemberStateChange;
+        Debug.Log($"LobbyChatUpdate: {stateChange}");
+        StartCoroutine(DelayedHostPromotion(0.5f));
         StartCoroutine(DelayedNameUpdate(0.5f));
+    }
+
+    private IEnumerator DelayedHostPromotion(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        CSteamID currentOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(lobbyID));
+        CSteamID me = SteamUser.GetSteamID();
+
+        if (currentOwner == me && !NetworkServer.active)
+        {
+            Debug.Log("I am confirmed as new host after delay. Starting host server...");
+            networkManager.StartHost();
+            SteamMatchmaking.SetLobbyData(new CSteamID(lobbyID), HostAddressKey, me.ToString());
+        }
     }
 
     private IEnumerator DelayedNameUpdate(float delay)
@@ -110,6 +127,27 @@ public class SteamLobby : MonoBehaviour
         Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby);
         networkManager.StartClient();
         panelSwapper.SetActivePanel(1); // Assuming 1 is the index for the lobby panel
+        LobbyUIManager.Instance?.UpdatePlayerNames();
         StartCoroutine(DelayedNameUpdate(.5f));
+    }
+
+    public void LeaveLobby()
+    {
+        if(lobbyID != 0)
+        {
+            SteamMatchmaking.LeaveLobby(new CSteamID(lobbyID));
+            lobbyID = 0;
+        }
+
+        if(NetworkServer.active)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        else if(NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopClient();
+        }
+
+        LobbyUIManager.Instance?.UpdatePlayerNames();
     }
 }

@@ -23,11 +23,11 @@ public class BuildScript
 
         if (summary.result == BuildResult.Succeeded)
         {
-            Debug.Log("✅ Build succeeded: " + summary.totalSize + " bytes");
+            Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
         }
         else if (summary.result == BuildResult.Failed)
         {
-            Debug.LogError("❌ Build failed.");
+            Debug.LogError("Build failed.");
         }
     }
 }
