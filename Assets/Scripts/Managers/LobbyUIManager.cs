@@ -2,6 +2,7 @@ using Steamworks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class LobbyUIManager : MonoBehaviour
 {
@@ -21,7 +22,14 @@ public class LobbyUIManager : MonoBehaviour
     {
         var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
         int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby);
-        Debug.Log($"Updating player names. Lobby member count: {SteamMatchmaking.GetNumLobbyMembers(new CSteamID(SteamLobby.Instance.lobbyID))}");
+        Debug.Log($"Updating player names. Lobby member count: {memberCount}");
+
+        if (memberCount == 0)
+        {
+            Debug.LogWarning("Lobby has no members yet, retrying...");
+            StartCoroutine(RetryUpdate());
+            return;
+        }
 
         for (int i = 0; i < playerNameTexts.Length; i++)
         {
@@ -38,4 +46,11 @@ public class LobbyUIManager : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator RetryUpdate()
+    {
+        yield return new WaitForSeconds(1f);
+        UpdatePlayerNames();
+    }
+
 }

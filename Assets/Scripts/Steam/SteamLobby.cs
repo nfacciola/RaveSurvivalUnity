@@ -49,7 +49,7 @@ public class SteamLobby : MonoBehaviour
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
-        //lobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnLobbyChatUpdate);
+        lobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnLobbyChatUpdate);
     }
 
     public void HostLobby(){
@@ -78,16 +78,21 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
-    // void OnLobbyChatUpdate(LobbyChatUpdate_t callback)
-    // {
-    //     if (callback.m_ulSteamIDLobby != lobbyID) return; // Ignore if not the current lobby
+    void OnLobbyChatUpdate(LobbyChatUpdate_t callback)
+    {
+        if (callback.m_ulSteamIDLobby != lobbyID) return; // Ignore if not the current lobby
 
-    //     Debug.Log("LobbyChatUpdate received on CLIENT");
-    //     StartCoroutine(DelayedNameUpdate(0.5f));
-    // }
+        Debug.Log("LobbyChatUpdate received on CLIENT");
+        StartCoroutine(DelayedNameUpdate(0.5f));
+    }
 
     private IEnumerator DelayedNameUpdate(float delay)
     {
+        if (LobbyUIManager.Instance == null)
+        {
+            Debug.LogWarning("LobbyUIManager.Instance is null, skipping name update.");
+            yield break;
+        }
         yield return new WaitForSeconds(delay);
         LobbyUIManager.Instance?.UpdatePlayerNames();
     }
@@ -99,12 +104,12 @@ public class SteamLobby : MonoBehaviour
             Debug.Log("Already in a lobby as host. Ignoring join request.");
             return;
         }
+        lobbyID = callback.m_ulSteamIDLobby;
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
         networkManager.networkAddress = hostAddress;
         Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby);
         networkManager.StartClient();
         panelSwapper.SetActivePanel(1); // Assuming 1 is the index for the lobby panel
-        StartCoroutine(DelayedNameUpdate(0.5f));
-        LobbyUIManager.Instance.UpdatePlayerNames();
+        StartCoroutine(DelayedNameUpdate(.5f));
     }
 }
