@@ -44,7 +44,8 @@ public class SteamLobby : MonoBehaviour
             Debug.LogError("Steam is not initialized. Make sure to run this in the Steam environment.");
             return;
         }
-
+        //idk why but the UI manager goes inactive wihout this line
+        panelSwapper.gameObject.SetActive(true);
         Debug.Log("SteamLobby Start() running. IsServer: " + NetworkServer.active + ", IsClient: " + NetworkClient.active);
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);

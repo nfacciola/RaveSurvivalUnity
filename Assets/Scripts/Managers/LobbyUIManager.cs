@@ -1,22 +1,36 @@
 using Steamworks;
 using TMPro;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class LobbyUIManager : MonoBehaviour
+public class LobbyUIManager : NetworkBehaviour
 {
     public static LobbyUIManager Instance;
-    public TextMeshProUGUI[] playerNameTexts;
+    public Transform playerListParent;
+    public List<TextMeshProUGUI> playerNameTexts = new List<TextMeshProUGUI>();
+    public List<PlayerLobbyHandler> playerLobbyHandlers = new List<PlayerLobbyHandler>();
+    public Button playGameButton;
 
     void Awake()
     {
-        Instance = Instance == null ? this : Instance;
-        if (Instance != this)
+        if (Instance == null)
         {
-            Destroy(gameObject);
+            Instance = this;
         }
+        else if (Instance != this)
+        {
+
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    void Start()
+    {
+        playGameButton.interactable = false;
     }
 
     public void UpdatePlayerNames()
@@ -49,11 +63,35 @@ public class LobbyUIManager : MonoBehaviour
         }
 
         //Show names
-        for (int i = 0; i < playerNameTexts.Length; i++)
+        for (int i = 0; i < playerNameTexts.Count; i++)
         {
             string playerName = i < memberCount ? SteamFriends.GetFriendPersonaName(orderedMembers[i]) : "";
             playerNameTexts[i].text = playerName;
         }
+    }
+
+    public void RegisterPlayer(PlayerLobbyHandler player, TextMeshProUGUI textMesh)
+    {
+        player.transform.SetParent(playerListParent, false);
+        playerLobbyHandlers.Add(player);
+        playerNameTexts.Add(textMesh);
+    }
+
+    [Server]
+    public void CheckAllPlayersReady()
+    {
+        foreach(var player in playerLobbyHandlers)
+        {
+            if(!player.isReady)
+                return;
+        }
+        RpcEnablePlayButton();
+    }
+
+    [ClientRpc]
+    void RpcEnablePlayButton()
+    {
+        playGameButton.interactable = true;
     }
 
     private IEnumerator RetryUpdate()
