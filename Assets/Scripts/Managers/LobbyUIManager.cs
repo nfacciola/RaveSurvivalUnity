@@ -36,8 +36,7 @@ public class LobbyUIManager : NetworkBehaviour
 
     public void UpdatePlayerNames()
     {
-        playerLobbyHandlers.Clear();
-        playerNameTexts.Clear();
+        
         var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
         Debug.Log($"Get Lobby ID: {SteamLobby.Instance.lobbyID}");
         int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby);

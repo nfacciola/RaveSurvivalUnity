@@ -132,8 +132,10 @@ public class SteamLobby : MonoBehaviour
         //StartCoroutine(DelayedNameUpdate(.5f));
     }
 
+    [ClientRpc]
     public void LeaveLobby()
     {
+      Debug.Log("Player Leaving Lobby");
         if(lobbyID != 0)
         {
             SteamMatchmaking.LeaveLobby(new CSteamID(lobbyID));
