@@ -62,11 +62,13 @@ public class LobbyUIManager : NetworkBehaviour
             }
         }
 
-        //Show names
-        for (int i = 0; i < playerNameTexts.Count; i++)
+        int j = 0;
+        foreach(var member in orderedMembers)
         {
-            string playerName = i < memberCount ? SteamFriends.GetFriendPersonaName(orderedMembers[i]) : "";
-            playerNameTexts[i].text = playerName;
+            print(SteamFriends.GetFriendPersonaName(member));
+            string playerName = SteamFriends.GetFriendPersonaName(member);
+            playerNameTexts[j].text = playerName;
+            j++;
         }
     }
 
@@ -75,6 +77,7 @@ public class LobbyUIManager : NetworkBehaviour
         player.transform.SetParent(playerListParent, false);
         playerLobbyHandlers.Add(player);
         playerNameTexts.Add(textMesh);
+        UpdatePlayerNames();
     }
 
     [Server]

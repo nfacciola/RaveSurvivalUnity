@@ -8,6 +8,7 @@ public class PlayerLobbyHandler : NetworkBehaviour
     [SyncVar(hook = nameof(OnReadyStatusChanged))]
     public bool isReady = false;
     public Button readyButton;
+    public TextMeshProUGUI nameText;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class PlayerLobbyHandler : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        LobbyUIManager.Instance.RegisterPlayer(this, this.GetComponent<Button>().GetComponent<TextMeshProUGUI>());
+        LobbyUIManager.Instance.RegisterPlayer(this, nameText);
     }
 
     [Command]

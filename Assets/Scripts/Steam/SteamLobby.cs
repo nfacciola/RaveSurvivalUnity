@@ -70,7 +70,7 @@ public class SteamLobby : MonoBehaviour
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
         lobbyID = callback.m_ulSteamIDLobby;
-        LobbyUIManager.Instance.UpdatePlayerNames();
+        // LobbyUIManager.Instance.UpdatePlayerNames();
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
@@ -128,8 +128,8 @@ public class SteamLobby : MonoBehaviour
         Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby);
         networkManager.StartClient();
         panelSwapper.SetActivePanel(1); // Assuming 1 is the index for the lobby panel
-        LobbyUIManager.Instance?.UpdatePlayerNames();
-        StartCoroutine(DelayedNameUpdate(.5f));
+        //LobbyUIManager.Instance?.UpdatePlayerNames();
+        //StartCoroutine(DelayedNameUpdate(.5f));
     }
 
     public void LeaveLobby()
