@@ -4,6 +4,8 @@ using Steamworks;
 using Mirror.Transports.Encryption;
 using Edgegap;
 using System.Collections;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class SteamLobby : MonoBehaviour
 {
@@ -70,7 +72,7 @@ public class SteamLobby : MonoBehaviour
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
         lobbyID = callback.m_ulSteamIDLobby;
-        // LobbyUIManager.Instance.UpdatePlayerNames();
+        LobbyUIManager.Instance.CreateLobby();
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
@@ -135,7 +137,14 @@ public class SteamLobby : MonoBehaviour
     [ClientRpc]
     public void LeaveLobby()
     {
-      
+      CSteamID currentOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(lobbyID));
+      CSteamID me = SteamUser.GetSteamID();
+      var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
+      List<CSteamID> members = new List<CSteamID>();
+      int count = SteamMatchmaking.GetNumLobbyMembers(lobby);
+      for(int i = 0; i < count; i++) {
+        members.Add(SteamMatchmaking.GetLobbyMemberByIndex(lobby, i));
+      }
       Debug.Log("Player Leaving Lobby");
         if(lobbyID != 0)
         {
@@ -143,11 +152,11 @@ public class SteamLobby : MonoBehaviour
             lobbyID = 0;
         }
 
-        // if(NetworkServer.active)
-        // {
-        //     NetworkManager.singleton.StopHost();
-        // }
-        if(NetworkClient.isConnected)
+        if(NetworkServer.active && currentOwner == me)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        else if(NetworkClient.isConnected)
         {
             NetworkManager.singleton.StopClient();
         }
