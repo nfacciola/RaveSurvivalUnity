@@ -350,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &432088012
 RectTransform:
   m_ObjectHideFlags: 0
@@ -503,16 +503,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerListParent: {fileID: 1430344944}
-  playerNameTexts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerLobbyHandlers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  playerNameTexts: []
+  playerLobbyHandlers: []
   playGameButton: {fileID: 1517226356}
 --- !u!114 &798601822
 MonoBehaviour:
