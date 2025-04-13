@@ -135,6 +135,7 @@ public class SteamLobby : MonoBehaviour
     [ClientRpc]
     public void LeaveLobby()
     {
+      
       Debug.Log("Player Leaving Lobby");
         if(lobbyID != 0)
         {
@@ -142,11 +143,11 @@ public class SteamLobby : MonoBehaviour
             lobbyID = 0;
         }
 
-        if(NetworkServer.active)
-        {
-            NetworkManager.singleton.StopHost();
-        }
-        else if(NetworkClient.isConnected)
+        // if(NetworkServer.active)
+        // {
+        //     NetworkManager.singleton.StopHost();
+        // }
+        if(NetworkClient.isConnected)
         {
             NetworkManager.singleton.StopClient();
         }
