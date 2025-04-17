@@ -78,6 +78,14 @@ public class SteamLobby : NetworkBehaviour
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
         Debug.Log("Join request received for lobby: " + callback.m_steamIDLobby);
+
+        //in case we didnt fully disconnect from the last lobby
+        if(NetworkClient.isConnected || NetworkClient.active)
+        {
+            Debug.Log("NetworkClient is active or connected. Disconnecting before joining new lobby.");
+            NetworkManager.singleton.StopClient();
+            NetworkClient.Shutdown();
+        }
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
@@ -171,6 +179,8 @@ public class SteamLobby : NetworkBehaviour
         {
             NetworkManager.singleton.StopClient();
         }
+
+        NetworkClient.Shutdown();
 
         panelSwapper.gameObject.SetActive(true);
         panelSwapper.SetActivePanel(0); // Assuming 0 is the index for the main menu panel
