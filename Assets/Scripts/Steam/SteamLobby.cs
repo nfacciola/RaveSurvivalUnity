@@ -180,9 +180,8 @@ public class SteamLobby : NetworkBehaviour
             NetworkManager.singleton.StopClient();
         }
 
-        NetworkClient.Shutdown();
-
         panelSwapper.gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
         panelSwapper.SetActivePanel(0); // Assuming 0 is the index for the main menu panel
         
     }
