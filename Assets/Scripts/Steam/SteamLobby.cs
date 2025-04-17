@@ -87,8 +87,17 @@ public class SteamLobby : NetworkBehaviour
 
         EChatMemberStateChange stateChange = (EChatMemberStateChange)callback.m_rgfChatMemberStateChange;
         Debug.Log($"LobbyChatUpdate: {stateChange}");
-        StartCoroutine(DelayedHostPromotion(0.5f));
-        StartCoroutine(DelayedNameUpdate(0.5f));
+
+        bool shouldUpdate = stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeEntered) ||
+                        stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeLeft) ||
+                        stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeDisconnected) ||
+                        stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeKicked) ||
+                        stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeBanned);
+
+        if (shouldUpdate)
+        {
+            StartCoroutine(DelayedNameUpdate(0.5f));
+        }
     }
 
     private IEnumerator DelayedHostPromotion(float delay)
@@ -134,18 +143,22 @@ public class SteamLobby : NetworkBehaviour
         //StartCoroutine(DelayedNameUpdate(.5f));
     }
 
-    [ClientRpc]
+
     public void LeaveLobby()
     {
       CSteamID currentOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(lobbyID));
       CSteamID me = SteamUser.GetSteamID();
-      var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
+      var lobby = new CSteamID(lobbyID);
       List<CSteamID> members = new List<CSteamID>();
+
       int count = SteamMatchmaking.GetNumLobbyMembers(lobby);
+
       for(int i = 0; i < count; i++) {
         members.Add(SteamMatchmaking.GetLobbyMemberByIndex(lobby, i));
       }
+
       Debug.Log("Player Leaving Lobby");
+
         if(lobbyID != 0)
         {
             SteamMatchmaking.LeaveLobby(new CSteamID(lobbyID));
@@ -161,6 +174,6 @@ public class SteamLobby : NetworkBehaviour
             NetworkManager.singleton.StopClient();
         }
 
-        LobbyUIManager.Instance?.UpdatePlayerNames();
+        
     }
 }
