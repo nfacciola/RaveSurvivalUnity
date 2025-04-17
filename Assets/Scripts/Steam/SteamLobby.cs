@@ -5,7 +5,7 @@ using Mirror.Transports.Encryption;
 using Edgegap;
 using System.Collections;
 
-public class SteamLobby : MonoBehaviour
+public class SteamLobby : NetworkBehaviour
 {
     public static SteamLobby Instance;
     public GameObject hostButton = null;
