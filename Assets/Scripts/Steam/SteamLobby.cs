@@ -146,18 +146,16 @@ public class SteamLobby : NetworkBehaviour
 
     public void LeaveLobby()
     {
-      CSteamID currentOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(lobbyID));
-      CSteamID me = SteamUser.GetSteamID();
-      var lobby = new CSteamID(lobbyID);
-      List<CSteamID> members = new List<CSteamID>();
+        CSteamID currentOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(lobbyID));
+        CSteamID me = SteamUser.GetSteamID();
+        var lobby = new CSteamID(lobbyID);
+        List<CSteamID> members = new List<CSteamID>();
 
-      int count = SteamMatchmaking.GetNumLobbyMembers(lobby);
+        int count = SteamMatchmaking.GetNumLobbyMembers(lobby);
 
-      for(int i = 0; i < count; i++) {
-        members.Add(SteamMatchmaking.GetLobbyMemberByIndex(lobby, i));
-      }
-
-      Debug.Log("Player Leaving Lobby");
+        for(int i = 0; i < count; i++) {
+            members.Add(SteamMatchmaking.GetLobbyMemberByIndex(lobby, i));
+        }
 
         if(lobbyID != 0)
         {
@@ -174,6 +172,8 @@ public class SteamLobby : NetworkBehaviour
             NetworkManager.singleton.StopClient();
         }
 
+        panelSwapper.gameObject.SetActive(true);
+        panelSwapper.SetActivePanel(0); // Assuming 0 is the index for the main menu panel
         
     }
 }
