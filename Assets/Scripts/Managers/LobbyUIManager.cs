@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 public class LobbyUIManager : NetworkBehaviour
 {
@@ -34,6 +35,11 @@ public class LobbyUIManager : NetworkBehaviour
         playGameButton.interactable = false;
     }
 
+    public void CreateLobby(hostId) {
+
+      UpdatePlayerNames(memberId, isDelete = false)
+    }
+
     public void UpdatePlayerNames()
     {
         
@@ -42,7 +48,7 @@ public class LobbyUIManager : NetworkBehaviour
         int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby);
         Debug.Log($"Updating player names. Lobby member count: {memberCount}");
 
-        CSteamID hostID = new CSteamID(ulong.Parse(SteamMatchmaking.GetLobbyData(lobby, "HostAddress")));
+        //CSteamID hostID = new CSteamID(ulong.Parse(SteamMatchmaking.GetLobbyData(lobby, "HostAddress")));
         List<CSteamID> orderedMembers = new List<CSteamID>();
 
         if (memberCount == 0)
