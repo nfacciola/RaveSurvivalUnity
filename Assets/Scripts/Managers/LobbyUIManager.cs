@@ -69,7 +69,7 @@ public class LobbyUIManager : NetworkBehaviour
         int j = 0;
         foreach(var member in orderedMembers)
         {  
-            TextMeshProUGUI txtMesh = playerListParent.GetChild(j).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI txtMesh = playerListParent.GetChild(j).GetChild(0).GetComponent<TextMeshProUGUI>();
             playerNameTexts.Add(txtMesh);
             print(SteamFriends.GetFriendPersonaName(member));
             string playerName = SteamFriends.GetFriendPersonaName(member);
