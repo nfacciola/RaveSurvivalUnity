@@ -26,7 +26,7 @@ public class PlayerLobbyHandler : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        LobbyUIManager.Instance.RegisterPlayer(this, nameText);
+        LobbyUIManager.Instance.RegisterPlayer(this);
     }
 
     [Command]

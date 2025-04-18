@@ -35,14 +35,9 @@ public class LobbyUIManager : NetworkBehaviour
         playGameButton.interactable = false;
     }
 
-    // public void CreateLobby(hostId) {
-
-    //   UpdatePlayerNames(memberId, isDelete = false);
-    // }
-
     public void UpdatePlayerNames()
     {
-        
+        playerNameTexts.Clear();
         var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
         Debug.Log($"Get Lobby ID: {SteamLobby.Instance.lobbyID}");
         int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby);
@@ -73,7 +68,9 @@ public class LobbyUIManager : NetworkBehaviour
 
         int j = 0;
         foreach(var member in orderedMembers)
-        {
+        {  
+            TextMeshProUGUI txtMesh = playerListParent.GetChild(j).GetComponent<TextMeshProUGUI>();
+            playerNameTexts.Add(txtMesh);
             print(SteamFriends.GetFriendPersonaName(member));
             string playerName = SteamFriends.GetFriendPersonaName(member);
             playerNameTexts[j].text = playerName;
@@ -81,11 +78,11 @@ public class LobbyUIManager : NetworkBehaviour
         }
     }
 
-    public void RegisterPlayer(PlayerLobbyHandler player, TextMeshProUGUI textMesh)
+    public void RegisterPlayer(PlayerLobbyHandler player)
     {
         player.transform.SetParent(playerListParent, false);
-        playerLobbyHandlers.Add(player);
-        playerNameTexts.Add(textMesh);
+        //playerLobbyHandlers.Add(player);
+        //playerNameTexts.Add(textMesh);
         UpdatePlayerNames();
     }
 

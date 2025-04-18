@@ -72,7 +72,6 @@ public class SteamLobby : NetworkBehaviour
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
         lobbyID = callback.m_ulSteamIDLobby;
-        //LobbyUIManager.Instance.CreateLobby();
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
@@ -105,21 +104,6 @@ public class SteamLobby : NetworkBehaviour
         if (shouldUpdate)
         {
             StartCoroutine(DelayedNameUpdate(0.5f));
-        }
-    }
-
-    private IEnumerator DelayedHostPromotion(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        CSteamID currentOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(lobbyID));
-        CSteamID me = SteamUser.GetSteamID();
-
-        if (currentOwner == me && !NetworkServer.active)
-        {
-            Debug.Log("I am confirmed as new host after delay. Starting host server...");
-            networkManager.StartHost();
-            SteamMatchmaking.SetLobbyData(new CSteamID(lobbyID), HostAddressKey, me.ToString());
         }
     }
 
