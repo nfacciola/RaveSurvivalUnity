@@ -23,7 +23,6 @@ public class Gun : MonoBehaviour
     {
       
         if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
-          Debug.Log(1f/fireRate);
           nextTimeToFire = Time.time + (1f/fireRate);
           Shoot();
         }
@@ -37,8 +36,6 @@ public class Gun : MonoBehaviour
       muzzleFalsh.Play();
       RaycastHit hit;
       if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
-        Debug.Log(hit.transform.name);
-
         Enemy enemy = hit.transform.GetComponent<Enemy>();
         if(enemy != null) {
           enemy.TakeDamage(damage);
