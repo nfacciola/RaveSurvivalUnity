@@ -131,8 +131,6 @@ public class SteamLobby : NetworkBehaviour
         Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby);
         networkManager.StartClient();
         panelSwapper.SetActivePanel(1); // Assuming 1 is the index for the lobby panel
-        //LobbyUIManager.Instance?.UpdatePlayerNames();
-        //StartCoroutine(DelayedNameUpdate(.5f));
     }
 
 
