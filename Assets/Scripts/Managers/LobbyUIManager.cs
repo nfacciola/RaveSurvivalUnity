@@ -73,7 +73,7 @@ namespace RaveSurvival
             foreach(var member in orderedMembers)
             {  
                 TextMeshProUGUI txtMesh = playerListParent.GetChild(j).GetChild(0).GetComponent<TextMeshProUGUI>();
-                PlayerLobbyHandler playerLobbyHandler = playerListParent.GetChild(j).GetChild(0).GetComponent<PlayerLobbyHandler>();
+                PlayerLobbyHandler playerLobbyHandler = playerListParent.GetChild(j).GetComponent<PlayerLobbyHandler>();
                 playerLobbyHandlers.Add(playerLobbyHandler);
                 playerNameTexts.Add(txtMesh);
                 string playerName = SteamFriends.GetFriendPersonaName(member);
