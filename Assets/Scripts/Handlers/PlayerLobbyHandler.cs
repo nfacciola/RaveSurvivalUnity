@@ -20,6 +20,7 @@ namespace RaveSurvival
         public override void OnStartLocalPlayer()
         {
             base.OnStartLocalPlayer();
+            readyButton.interactable = false;
             readyButton.interactable = true;
             isReady = false;
             SetButtonColor(Color.gray);
@@ -53,7 +54,7 @@ namespace RaveSurvival
             colors.disabledColor = Color.gray; // Optional
             readyButton.colors = colors;
         }
-        
+
         void OnReadyStatusChanged(bool oldValue, bool newValue)
         {
             if (isReady)
