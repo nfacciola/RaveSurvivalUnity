@@ -47,9 +47,13 @@ namespace RaveSurvival
         {
             var colors = readyButton.colors;
             colors.normalColor = _color;
+            colors.highlightedColor = _color;
+            colors.pressedColor = _color;
+            colors.selectedColor = _color;
+            colors.disabledColor = Color.gray; // Optional
             readyButton.colors = colors;
         }
-
+        
         void OnReadyStatusChanged(bool oldValue, bool newValue)
         {
             if (isReady)
