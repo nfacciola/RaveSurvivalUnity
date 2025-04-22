@@ -2,6 +2,7 @@
 using Steamworks;
 using System;
 using UnityEngine;
+using RaveSurvival;
 
 namespace Mirror.FizzySteam
 {
@@ -230,6 +231,7 @@ namespace Mirror.FizzySteam
                 client.Disconnect();
                 client = null;
                 Debug.Log("Transport shut down - client.");
+                SteamLobby.Instance.LeaveLobby();
             }
 
             if (server != null)

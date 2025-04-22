@@ -3,65 +3,69 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerLobbyHandler : NetworkBehaviour
+namespace RaveSurvival
 {
-    [SyncVar(hook = nameof(OnReadyStatusChanged))]
-    public bool isReady = false;
-    public Button readyButton;
-    public TextMeshProUGUI nameText;
-
-    void Start()
+    public class PlayerLobbyHandler : NetworkBehaviour
     {
-        readyButton.interactable = false;
-    }
+        [SyncVar(hook = nameof(OnReadyStatusChanged))]
+        public bool isReady = false;
+        public Button readyButton;
+        public TextMeshProUGUI nameText;
 
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        readyButton.interactable = true;
-        isReady = false;
-        SetButtonColor(Color.gray);
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        LobbyUIManager.Instance.RegisterPlayer(this);
-    }
-
-    [Command]
-    void CmdSetReady()
-    {
-        isReady = !isReady;
-        OnReadyStatusChanged(!isReady, isReady);
-    }
-
-    public void OnReadyButtonClicked()
-    {
-        CmdSetReady();
-    }
-
-    void SetButtonColor(Color _color)
-    {
-        var colors = readyButton.colors;
-        colors.normalColor = _color;
-        readyButton.colors = colors;
-    }
-
-    void OnReadyStatusChanged(bool oldValue, bool newValue)
-    {
-        if (isReady)
+        void Start()
         {
-            SetButtonColor(Color.green);
+            readyButton.interactable = false;
         }
-        else
+
+        public override void OnStartLocalPlayer()
         {
+            base.OnStartLocalPlayer();
+            readyButton.interactable = true;
+            isReady = false;
             SetButtonColor(Color.gray);
         }
 
-        if(NetworkServer.active)
+        public override void OnStartClient()
         {
-            LobbyUIManager.Instance.CheckAllPlayersReady();
+            base.OnStartClient();
+            LobbyUIManager.Instance.RegisterPlayer(this);
+        }
+
+        [Command]
+        void CmdSetReady()
+        {
+            isReady = !isReady;
+            OnReadyStatusChanged(!isReady, isReady);
+        }
+
+        public void OnReadyButtonClicked()
+        {
+            CmdSetReady();
+        }
+
+        void SetButtonColor(Color _color)
+        {
+            var colors = readyButton.colors;
+            colors.normalColor = _color;
+            readyButton.colors = colors;
+        }
+
+        void OnReadyStatusChanged(bool oldValue, bool newValue)
+        {
+            if (isReady)
+            {
+                SetButtonColor(Color.green);
+            }
+            else
+            {
+                SetButtonColor(Color.gray);
+            }
+
+            if(NetworkServer.active)
+            {
+                LobbyUIManager.Instance.CheckAllPlayersReady();
+            }
         }
     }
+
 }

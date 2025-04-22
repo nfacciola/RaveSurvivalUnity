@@ -1,38 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelSwapper : MonoBehaviour
+namespace RaveSurvival
 {
-    public List<Panel> panels;
-
-    public void SetMultiplePanels(List<int> indices)
+    public class PanelSwapper : MonoBehaviour
     {
-        for (int i = 0; i < panels.Count; i++)
+        public List<Panel> panels;
+
+        public void SetMultiplePanels(List<int> indices)
         {
-            if(indices.Contains(i))
+            for (int i = 0; i < panels.Count; i++)
             {
-                panels[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                panels[i].gameObject.SetActive(false); 
+                if(indices.Contains(i))
+                {
+                    panels[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    panels[i].gameObject.SetActive(false); 
+                }
             }
         }
-    }
 
-    public void SetActivePanel(int index)
-    {
-        for (int i = 0; i < panels.Count; i++)
+        public void SetActivePanel(int index)
         {
-            panels[i].gameObject.SetActive(i == index);
+            for (int i = 0; i < panels.Count; i++)
+            {
+                panels[i].gameObject.SetActive(i == index);
+            }
         }
-    }
 
-    void Start()
-    {
-        if (panels.Count > 0)
+        void Start()
         {
-            SetActivePanel(0);
+            if (panels.Count > 0)
+            {
+                SetActivePanel(0);
+            }
         }
     }
 }
