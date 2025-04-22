@@ -37,7 +37,7 @@ namespace RaveSurvival
             playGameButton.interactable = false;
         }
 
-        public void UpdatePlayerNames()
+        public void UpdatePlayerLobbyUI()
         {
             playerNameTexts.Clear();
             var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
@@ -72,8 +72,9 @@ namespace RaveSurvival
             foreach(var member in orderedMembers)
             {  
                 TextMeshProUGUI txtMesh = playerListParent.GetChild(j).GetChild(0).GetComponent<TextMeshProUGUI>();
+                PlayerLobbyHandler playerLobbyHandler = playerListParent.GetChild(j).GetChild(0).GetComponent<PlayerLobbyHandler>();
+                playerLobbyHandlers.Add(playerLobbyHandler);
                 playerNameTexts.Add(txtMesh);
-                print(SteamFriends.GetFriendPersonaName(member));
                 string playerName = SteamFriends.GetFriendPersonaName(member);
                 playerNameTexts[j].text = playerName;
                 j++;
@@ -83,9 +84,7 @@ namespace RaveSurvival
         public void RegisterPlayer(PlayerLobbyHandler player)
         {
             player.transform.SetParent(playerListParent, false);
-            //playerLobbyHandlers.Add(player);
-            //playerNameTexts.Add(textMesh);
-            UpdatePlayerNames();
+            UpdatePlayerLobbyUI();
         }
 
         [Server]
@@ -108,7 +107,7 @@ namespace RaveSurvival
         private IEnumerator RetryUpdate()
         {
             yield return new WaitForSeconds(1f);
-            UpdatePlayerNames();
+            UpdatePlayerLobbyUI();
         }
 
     }

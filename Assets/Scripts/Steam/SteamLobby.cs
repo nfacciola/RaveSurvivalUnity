@@ -117,7 +117,7 @@ namespace RaveSurvival
                 yield break;
             }
             yield return new WaitForSeconds(delay);
-            LobbyUIManager.Instance?.UpdatePlayerNames();
+            LobbyUIManager.Instance?.UpdatePlayerLobbyUI();
         }
 
         void OnLobbyEntered(LobbyEnter_t callback)
