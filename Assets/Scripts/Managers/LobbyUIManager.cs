@@ -40,6 +40,7 @@ namespace RaveSurvival
         public void UpdatePlayerLobbyUI()
         {
             playerNameTexts.Clear();
+            playerLobbyHandlers.Clear();
             var lobby = new CSteamID(SteamLobby.Instance.lobbyID);
             Debug.Log($"Get Lobby ID: {SteamLobby.Instance.lobbyID}");
             int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobby);
