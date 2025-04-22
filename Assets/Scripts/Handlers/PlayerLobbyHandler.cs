@@ -20,15 +20,15 @@ namespace RaveSurvival
         public override void OnStartLocalPlayer()
         {
             base.OnStartLocalPlayer();
-            readyButton.interactable = true;
-            isReady = false;
-            SetButtonColor(Color.gray);
         }
 
         public override void OnStartClient()
         {
             base.OnStartClient();
             LobbyUIManager.Instance.RegisterPlayer(this);
+            readyButton.interactable = true;
+            isReady = false;
+            SetButtonColor(Color.gray);
         }
 
         [Command]
