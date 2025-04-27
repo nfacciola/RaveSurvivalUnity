@@ -106,6 +106,7 @@ namespace RaveSurvival
             if (shouldUpdate)
             {
                 StartCoroutine(DelayedNameUpdate(0.5f));
+                LobbyUIManager.Instance?.CheckAllPlayersReady();
             }
         }
 

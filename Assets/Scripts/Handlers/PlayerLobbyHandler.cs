@@ -45,10 +45,10 @@ namespace RaveSurvival
 
         void SetSelectedButtonColor(Color color)
         {
-            // readyButton.colors = _colors;
             ColorBlock cb = readyButton.colors;
             cb.normalColor = color;
             cb.selectedColor = color;
+            cb.disabledColor = color;
             readyButton.colors = cb;
         }
 
