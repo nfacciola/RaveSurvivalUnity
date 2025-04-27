@@ -1,3 +1,4 @@
+using Codice.CM.SEIDInfo;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -20,10 +21,8 @@ namespace RaveSurvival
         public override void OnStartLocalPlayer()
         {
             base.OnStartLocalPlayer();
-            readyButton.interactable = false;
             readyButton.interactable = true;
             isReady = false;
-            SetButtonColor(Color.gray);
         }
 
         public override void OnStartClient()
@@ -44,31 +43,30 @@ namespace RaveSurvival
             CmdSetReady();
         }
 
-        void SetButtonColor(Color _color)
+        void SetSelectedButtonColor(Color color)
         {
-            var colors = readyButton.colors;
-            colors.normalColor = _color;
-            colors.highlightedColor = _color;
-            colors.pressedColor = _color;
-            colors.selectedColor = _color;
-            colors.disabledColor = Color.gray; // Optional
-            readyButton.colors = colors;
+            // readyButton.colors = _colors;
+            ColorBlock cb = readyButton.colors;
+            cb.normalColor = color;
+            cb.selectedColor = color;
+            readyButton.colors = cb;
         }
+
 
         void OnReadyStatusChanged(bool oldValue, bool newValue)
         {
-            if (isReady)
-            {
-                SetButtonColor(Color.green);
-            }
-            else
-            {
-                SetButtonColor(Color.gray);
-            }
-
             if(NetworkServer.active)
             {
                 LobbyUIManager.Instance.CheckAllPlayersReady();
+            }
+
+            if (isReady)
+            {
+                SetSelectedButtonColor(Color.green);
+            }
+            else
+            {
+                SetSelectedButtonColor(Color.white);
             }
         }
     }

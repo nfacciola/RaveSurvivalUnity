@@ -91,18 +91,23 @@ namespace RaveSurvival
         [Server]
         public void CheckAllPlayersReady()
         {
+            print(playerLobbyHandlers.Count);
             foreach(var player in playerLobbyHandlers)
             {
+                print(player);
                 if(!player.isReady)
+                {
+                    RpcSetPlayButtonInteractable(false);
                     return;
+                }
             }
-            RpcEnablePlayButton();
+            RpcSetPlayButtonInteractable(true);
         }
 
         [ClientRpc]
-        void RpcEnablePlayButton()
+        void RpcSetPlayButtonInteractable(bool truthStatus)
         {
-            playGameButton.interactable = true;
+            playGameButton.interactable = truthStatus;
         }
 
         private IEnumerator RetryUpdate()
