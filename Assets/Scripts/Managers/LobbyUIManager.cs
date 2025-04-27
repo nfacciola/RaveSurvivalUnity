@@ -82,6 +82,14 @@ namespace RaveSurvival
             }
         }
 
+        public void OnPlayButtonClicked()
+        {
+            if(NetworkServer.active)
+            {
+                LobbyNetworkManager.singleton.ServerChangeScene("GameplayScene");
+            }
+        }
+
         public void RegisterPlayer(PlayerLobbyHandler player)
         {
             player.transform.SetParent(playerListParent, false);
