@@ -11,6 +11,8 @@ namespace RaveSurvival
 {
     public class LobbyNetworkManager : NetworkManager
     {
+
+        public GameObject playerGameplayPrefab;
         // Overrides the base singleton so we don't
         // have to cast to this type everywhere.
         public static new LobbyNetworkManager singleton => (LobbyNetworkManager)NetworkManager.singleton;
@@ -88,6 +90,10 @@ namespace RaveSurvival
         /// <param name="newSceneName"></param>
         public override void ServerChangeScene(string newSceneName)
         {
+            if(newSceneName == "GameplayScene")
+            {
+                this.playerPrefab = playerGameplayPrefab;
+            }
             base.ServerChangeScene(newSceneName);
         }
 
@@ -102,10 +108,7 @@ namespace RaveSurvival
         /// Called on the server when a scene is completed loaded, when the scene load was initiated by the server with ServerChangeScene().
         /// </summary>
         /// <param name="sceneName">The name of the new scene.</param>
-        public override void OnServerSceneChanged(string sceneName) 
-        { 
-            print("here");
-        }
+        public override void OnServerSceneChanged(string sceneName) { }
 
         /// <summary>
         /// Called from ClientChangeScene immediately before SceneManager.LoadSceneAsync is executed

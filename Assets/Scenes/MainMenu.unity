@@ -940,6 +940,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  playerGameplayPrefab: {fileID: 6750336684857629396, guid: 452912bd801777348a3f4ab6f95a8ffb, type: 3}
 --- !u!1 &1251318832
 GameObject:
   m_ObjectHideFlags: 0
