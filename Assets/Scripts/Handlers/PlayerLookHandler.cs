@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using Mirror;
 
 namespace RaveSurvival
 {
-    public class PlayerLookHandler : MonoBehaviour
+    public class PlayerLookHandler : NetworkBehaviour
     {
 
         public float mouseSensitivity = 100f;
@@ -11,24 +12,29 @@ namespace RaveSurvival
         public Transform playerBody;
 
         float xRotation = 0f;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+
         void Start()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            if(isLocalPlayer)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
 
-        // Update is called once per frame
         void Update()
         {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            if(isLocalPlayer)
+            {
+                float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            xRotation -= mouseY;
-            xRotation = Math.Clamp(xRotation, -90f, 90f);
+                xRotation -= mouseY;
+                xRotation = Math.Clamp(xRotation, -90f, 90f);
 
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+                transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-            playerBody.Rotate(Vector3.up * mouseX);
+                playerBody.Rotate(Vector3.up * mouseX);
+            }
         }
     }
 }
