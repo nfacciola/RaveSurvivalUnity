@@ -16,6 +16,7 @@ namespace RaveSurvival
 
 
       // Update is called once per frame
+      [Client]
       void Update()
       {
         if(isLocalPlayer)
@@ -40,6 +41,7 @@ namespace RaveSurvival
           }
 
           GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+          NetworkServer.Spawn(impactFx);
           Destroy(impactFx, 2f);
         }
 
