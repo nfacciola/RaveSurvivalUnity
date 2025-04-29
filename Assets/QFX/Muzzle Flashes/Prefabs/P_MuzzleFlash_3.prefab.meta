@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 13b86a2a97efce04b8232f3c56b176cb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 34771
+  packageName: Muzzle Flashes
+  packageVersion: 1.2.1
+  assetPath: Assets/QFX/Muzzle Flashes/Prefabs/P_MuzzleFlash_3.prefab
+  uploadId: 340942

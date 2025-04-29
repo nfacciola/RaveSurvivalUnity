@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 63d8278398ab4b54fbde167bef14a0ed
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 34771
+  packageName: Muzzle Flashes
+  packageVersion: 1.2.1
+  assetPath: Assets/QFX/Muzzle Flashes/Resources/Scripts/MF_LightAnimator.cs
+  uploadId: 340942

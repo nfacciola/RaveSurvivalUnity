@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e388478e21d31944f83c99139869baa8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 34771
+  packageName: Muzzle Flashes
+  packageVersion: 1.2.1
+  assetPath: Assets/QFX/Muzzle Flashes/Resources/Materials/MF 2/MF_Flame_2_2.mat
+  uploadId: 340942

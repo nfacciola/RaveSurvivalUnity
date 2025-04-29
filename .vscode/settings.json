@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Rave Survival.sln"
+    "dotnet.defaultSolution": "RaveSurvivalUnity.sln"
 }
