@@ -5153,6 +5153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bdfd10112d918419320d96e72d1ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   mouseSensitivity: 175
   playerBody: {fileID: 11793487347628270}
 --- !u!1 &8381021324200482159
@@ -5354,9 +5357,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50deb69a81ce8374bacb404a14d1a164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   damage: 10
   range: 100
   fireRate: 15
   fpsCam: {fileID: 7279026636496216237}
-  muzzleFalsh: {fileID: 7370697955241859718}
+  muzzleFlash: {fileID: 198113859317099842, guid: a5f095e8bd17d0440a45f535d2c6593b, type: 3}
   impactEffect: {fileID: 1806931374014481055, guid: e3630c7e107601d48b735283e5ea8b88, type: 3}
