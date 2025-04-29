@@ -1,8 +1,9 @@
 using UnityEngine;
+using Mirror;
 
 namespace RaveSurvival
 {
-  public class Gun : MonoBehaviour
+  public class Gun : NetworkBehaviour
   {
     public float damage = 10f;
     public float range = 100f;
@@ -17,10 +18,13 @@ namespace RaveSurvival
       // Update is called once per frame
       void Update()
       {
+        if(isLocalPlayer)
+        {
           if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
             nextTimeToFire = Time.time + 1f/fireRate;
             Shoot();
           }
+        }
       }
 
       void Shoot() {
