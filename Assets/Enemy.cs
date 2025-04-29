@@ -6,60 +6,72 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float health = 50f;
-    public NavMeshAgent agent;
-    //public ArrayList playerTansforms = new ArrayList();
-    //public Transform playerPos;
+    public float range = 10f;
+    private NavMeshAgent agent;
     private Transform target = null;
-    private IEnumerator chasingCo = null;
+    private IEnumerator behaviorCo = null;
+    public EnemyState enemyState = EnemyState.IDLE;
+    public Gun gun;
+
+    public enum EnemyState {
+      IDLE,
+      WANDER,
+      CHASE,
+      ATTACK,
+      DEAD
+    }
 
   public void Start()
   {
+    enemyState = EnemyState.IDLE;
     agent = GetComponent<NavMeshAgent>();
-    // var playerMoves = FindObjectsByType<PlayerMove>(FindObjectsSortMode.None);
-    // foreach(PlayerMove player in playerMoves) {
-    //   var temp = player.GetComponentInParent<Transform>();
-    //   if (temp != null) {
-    //     playerTansforms.Add(temp);
-    //   }
-    // }
-  }
-
-  public void Update()
-  {
-    // float min = 99999999;
-    // foreach(Transform player in playerTansforms) {
-    //   float dist = Vector3.Distance(player.transform.position, GetComponent<Transform>().transform.position);
-    //   if(dist < min) {
-    //     min = dist;
-    //     playerPos = player;
-    //   }
-    // }
   }
 
   public void PlayerSpotted(Transform player) {
-    if(target != player) {
+    if(target != player && behaviorCo == null) {
       target = player;
-      chasingCo = MoveToPlayer(player);
-      StartCoroutine(chasingCo);
+      behaviorCo = AttackPlayer(target);
+      StartCoroutine(behaviorCo);
+    }
+  }
+
+  public IEnumerator AttackPlayer(Transform player) {
+    float wait = 0.2f;
+    while(true) {
+      if(Vector3.Distance(player.position, transform.position) > range) {
+        MoveToPlayer(player);
+      } else {
+        ShootPlayer(player);
+      }
+      yield return wait;
     }
   }
   public void NoPlayerFound() {
-    if(chasingCo != null) {
-      StopCoroutine(chasingCo);
+    if(behaviorCo != null) {
+      IEnumerator delay = DelayedStop(behaviorCo, 2f);
+      StartCoroutine(delay);
+      // StopCoroutine(behaviorCo);
+      // enemyState = EnemyState.IDLE;
+      behaviorCo = null;
       target = null;
     }
   }
 
-  IEnumerator MoveToPlayer(Transform player) {
-    float wait = 0.2f;
-    while(true) {
-      transform.LookAt(player);
-      agent.SetDestination(player.position);
-      yield return wait;
-    }
+  private void MoveToPlayer(Transform player) {
+    enemyState = EnemyState.CHASE;
+    transform.LookAt(player);
+    agent.SetDestination(player.position);
   }
 
-  public void TakeDamage(float dmg) {
+  private void ShootPlayer(Transform player) {
+    enemyState = EnemyState.ATTACK;
+    agent.ResetPath();
+    transform.LookAt(player);
+    gun.Shoot();
+  }
+
+  public void TakeDamage(float dmg, Transform bulletDirection) {
+    transform.LookAt(bulletDirection);
       health -= dmg;
       if(health <= 0f) {
         Die();
@@ -68,5 +80,11 @@ public class Enemy : MonoBehaviour
 
     void Die() {
       Destroy(gameObject);
+    }
+
+    private IEnumerator DelayedStop(IEnumerator co, float seconds) {
+      yield return new WaitForSeconds(seconds);
+      StopCoroutine(co);
+      enemyState = EnemyState.IDLE;
     }
 }

@@ -1,4 +1,9 @@
+using System;
+using System.Diagnostics;
+using Unity.VisualScripting;
+using UnityEditor.TerrainTools;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
@@ -6,12 +11,22 @@ public class Gun : MonoBehaviour
   public float range = 100f;
   public float fireRate = 15f;
   private float nextTimeToFire = 0f;
-  public Camera fpsCam;
-  public ParticleSystem muzzleFalsh;
+
+  public WeaponType weaponType = WeaponType.RAYCAST;
+
+  public Transform rayStart;
+  public ParticleSystem muzzleFlash;
   public GameObject impactEffect;
+
+  public Transform projectileStart;
+  public GameObject projectile;
+
   private AudioSource audioSource;
   public AudioClip fireSound;
-
+    public enum WeaponType {
+    RAYCAST = 0,
+    PROJECTILE
+  }
 
   void Start()
   {
@@ -21,29 +36,43 @@ public class Gun : MonoBehaviour
   // Update is called once per frame
   void Update()
     {
-      
         if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
           Shoot();
         }
     }
 
-    void Shoot() {
-      if(audioSource.clip == null || audioSource != fireSound) {
-        audioSource.clip = fireSound;
-      }
-      audioSource.Play();
-      muzzleFalsh.Play();
-      RaycastHit hit;
-      if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
-        Enemy enemy = hit.transform.GetComponent<Enemy>();
-        if(enemy != null) {
-          enemy.TakeDamage(damage);
+    public void Shoot() { 
+      if(weaponType == WeaponType.RAYCAST) {
+        if(audioSource.clip == null || audioSource != fireSound) {
+          audioSource.clip = fireSound;
         }
+        audioSource.Play();
+        muzzleFlash.Play();
+        RaycastHit hit;
+        if (Physics.Raycast(rayStart.position, rayStart.forward, out hit, range)) {
+          Enemy enemy = hit.transform.GetComponent<Enemy>();
+          if(enemy != null) {
+            enemy.TakeDamage(damage, rayStart);
+          }
 
-        GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        Destroy(impactFx, 2f);
+          GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+          Destroy(impactFx, 2f);
+        }
       }
+      else if(weaponType == WeaponType.PROJECTILE) {
+        if(Time.time >= nextTimeToFire) {
+          nextTimeToFire = Time.time + (1f/fireRate);
+          if(audioSource.clip == null || audioSource != fireSound) {
+            audioSource.clip = fireSound;
+          }
+          GameObject projectile = Instantiate(this.projectile);
+          projectile.transform.position = projectileStart.position;
+          projectile.transform.rotation = projectileStart.rotation;
+        }
+        
+      } else {
 
+      }
     }
 }

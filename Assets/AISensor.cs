@@ -41,6 +41,7 @@ public class AISensor : MonoBehaviour
       for(int i = 0; i < count; ++i) {
         GameObject target = colliders[i].gameObject;
         if(IsInSight(target) && target.layer == LayerMask.NameToLayer("Player")) {
+          //check which player is closest and pick them as the target
           canSeePlayer = true;
           enemy.PlayerSpotted(target.transform);
         } else {
@@ -170,7 +171,7 @@ public class AISensor : MonoBehaviour
         Gizmos.color = meshColor;
         Gizmos.DrawMesh(mesh, transform.position, transform.rotation);
       }
-    Gizmos.DrawWireSphere(transform.position, distance);
+    //Gizmos.DrawWireSphere(transform.position, distance);
     if(canSeePlayer) {
       Gizmos.color = new Color(0,1,0,0.5f);
     } else {
