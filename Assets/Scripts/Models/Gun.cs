@@ -9,7 +9,7 @@ namespace RaveSurvival
     public float range = 100f;
     public float fireRate = 15f;
     public Camera fpsCam;
-    public ParticleSystem muzzleFalsh;
+    public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
 
     private float nextTimeToFire = 0f;
@@ -22,13 +22,14 @@ namespace RaveSurvival
         {
           if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            Shoot();
+            CmdShoot();
           }
         }
       }
 
-      void Shoot() {
-        muzzleFalsh.Play();
+      [Command]
+      void CmdShoot() {
+        muzzleFlash.Play();
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
           Debug.Log(hit.transform.name);
