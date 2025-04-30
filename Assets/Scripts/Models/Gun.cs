@@ -26,33 +26,45 @@ namespace RaveSurvival
         {
           if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            CmdShoot();
+            Shoot();
           }
         }
       }
 
-      [Command]
-      void CmdShoot() {
-        muzzleFlash.Play();
-        RaycastHit hit;
-        if (isLocalPlayer && Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
-          Debug.Log(hit.transform.name);
+    void Shoot()
+    {
+      muzzleFlash.Play();
+      Vector3 origin = fpsCam.transform.position;
+      Vector3 direction = fpsCam.transform.forward;
+      CmdShoot(origin, direction);
+    }
 
-          Enemy enemy = hit.transform.GetComponent<Enemy>();
-          if(enemy != null) {
-            enemy.TakeDamage(damage);
-          }
+    [Command]
+    void CmdShoot(Vector3 origin, Vector3 direction) {
+      
+      RaycastHit hit;
+      RpcPlayMuzzleFlash();
+      if (Physics.Raycast(origin, direction, out hit, range)) {
+        Debug.Log(hit.transform.name);
 
-          GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-          SetImpactFx(impactFx);
+        Enemy enemy = hit.transform.GetComponent<Enemy>();
+        if(enemy != null) {
+          enemy.TakeDamage(damage);
         }
 
+        GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        // SetImpactFx(impactFx);
+        NetworkServer.Spawn(impactFx);
+        Destroy(impactFx, 2f);
       }
+    }
 
-      [Command]
-      void SetImpactFx(GameObject impactFx) {
-          NetworkServer.Spawn(impactFx);
-          Destroy(impactFx, 2f);
-      }
+    [ClientRpc]
+    void RpcPlayMuzzleFlash() {
+        if(!isLocalPlayer)
+        {
+          muzzleFlash.Play();
+        }
+    }
   }
 }
