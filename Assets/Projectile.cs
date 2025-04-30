@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,11 +6,12 @@ public class Projectile : MonoBehaviour
 {
   private float damage = 5.0f;
   private Rigidbody rb;
-  void Awake()
-  {
+  void Awake() {
     rb = GetComponent<Rigidbody>();
+  }
+  public void FireBullet(float velocity) {
     if (rb != null) {
-      rb.AddForce(transform.forward * 15);
+          rb.AddForce(transform.forward * velocity);
     }
   }
   void OnCollisionEnter(Collision collision)

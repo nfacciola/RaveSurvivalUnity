@@ -69,6 +69,7 @@ public class Gun : MonoBehaviour
           GameObject projectile = Instantiate(this.projectile);
           projectile.transform.position = projectileStart.position;
           projectile.transform.rotation = projectileStart.rotation;
+          projectile.GetComponent<Projectile>().FireBullet(15f);
         }
         
       } else {
