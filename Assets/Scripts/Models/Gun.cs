@@ -20,7 +20,6 @@ namespace RaveSurvival
       fpsCam = cam;
     }
     // Update is called once per frame
-    [Client]
     void Update()
       {
         if(isLocalPlayer)
@@ -36,7 +35,7 @@ namespace RaveSurvival
       void CmdShoot() {
         muzzleFlash.Play();
         RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
+        if (isLocalPlayer && Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
           Debug.Log(hit.transform.name);
 
           Enemy enemy = hit.transform.GetComponent<Enemy>();
@@ -45,10 +44,15 @@ namespace RaveSurvival
           }
 
           GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-          NetworkServer.Spawn(impactFx);
-          Destroy(impactFx, 2f);
+          SetImpactFx(impactFx);
         }
 
+      }
+
+      [Command]
+      void SetImpactFx(GameObject impactFx) {
+          NetworkServer.Spawn(impactFx);
+          Destroy(impactFx, 2f);
       }
   }
 }
