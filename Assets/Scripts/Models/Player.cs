@@ -12,8 +12,9 @@ public class Player : NetworkBehaviour
   {
     Camera camera = FindFirstObjectByType<Camera>();
     if(isLocalPlayer) {
-     camera.transform.position = cameraPos.position;
-     camera.transform.rotation = cameraPos.rotation;
+      camera.transform.parent = cameraPos.transform;
+      camera.transform.position = cameraPos.position;
+      camera.transform.rotation = cameraPos.rotation;
     }
   }
     // Update is called once per frame

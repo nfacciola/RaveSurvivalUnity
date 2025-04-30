@@ -20,6 +20,7 @@ namespace RaveSurvival
       fpsCam = player.cam;
     }
     // Update is called once per frame
+    [Client]
     void Update()
       {
         if(isLocalPlayer)
