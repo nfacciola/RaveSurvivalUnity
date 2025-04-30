@@ -108,7 +108,11 @@ namespace RaveSurvival
         /// Called on the server when a scene is completed loaded, when the scene load was initiated by the server with ServerChangeScene().
         /// </summary>
         /// <param name="sceneName">The name of the new scene.</param>
-        public override void OnServerSceneChanged(string sceneName) { }
+        public override void OnServerSceneChanged(string sceneName) 
+        { 
+            GameManager.instance.SetPlayerList();
+            GameManager.instance.SetLocalCamera();
+        }
 
         /// <summary>
         /// Called from ClientChangeScene immediately before SceneManager.LoadSceneAsync is executed

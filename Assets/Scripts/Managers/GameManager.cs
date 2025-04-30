@@ -8,15 +8,26 @@ namespace RaveSurvival
 {
 	public class GameManager: NetworkBehaviour 
 	{
+		public static GameManager instance = null;
 		public List<Player> players;
 
-        void Start()
+        void Awake()
         {
-            players = new List<Player>(FindObjectsByType<Player>(FindObjectsSortMode.None));
-			SetLocalCamera();
-        }
+            if(instance == null)
+			{
+				instance = this;
+			}
+			else
+			{
+				Destroy(this.gameObject);
+			}
+		}
 
-		void SetLocalCamera()
+		public void SetPlayerList()
+		{
+			players = new List<Player>(FindObjectsByType<Player>(FindObjectsSortMode.None));
+		}
+        public void SetLocalCamera()
 		{
 			foreach(Player player in players)
 			{
