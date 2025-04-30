@@ -6,24 +6,16 @@ using UnityEngine.UIElements;
 public class Player : NetworkBehaviour
 {
   public Camera cam;
-  public void Awake()
+  public Transform cameraPos;
+  public float health = 50.0f;
+  public void Start()
   {
-    Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+    Camera camera = FindFirstObjectByType<Camera>();
     if(isLocalPlayer) {
-      foreach(Camera camera in cameras) {
-        if (!camera.Equals(cam)) {
-          camera.enabled = false;
-        }
-      }
+     camera.transform.position = cameraPos.position;
+     camera.transform.rotation = cameraPos.rotation;
     }
   }
-  public float health = 50.0f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
