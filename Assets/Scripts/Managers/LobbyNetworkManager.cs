@@ -110,12 +110,6 @@ namespace RaveSurvival
         /// <param name="sceneName">The name of the new scene.</param>
         public override void OnServerSceneChanged(string sceneName) 
         { 
-            if(sceneName == "GameplayScene")
-            {
-                Debug.Log("EPIC JOE MOMENT");
-                GameManager.instance.SetPlayerList();
-                GameManager.instance.SetLocalCamera();
-            }
         }
 
         /// <summary>
