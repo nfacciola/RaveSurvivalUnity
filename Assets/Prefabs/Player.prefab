@@ -5015,6 +5015,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb32a8f7fbc3de14083ecfc605a598c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cam: {fileID: 7279026636496216237}
   health: 50
 --- !u!1 &6479697084324283808
 GameObject:

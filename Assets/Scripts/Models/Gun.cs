@@ -13,10 +13,8 @@ namespace RaveSurvival
     public GameObject impactEffect;
 
     private float nextTimeToFire = 0f;
-
-
+    
       // Update is called once per frame
-      [Client]
       void Update()
       {
         if(isLocalPlayer)

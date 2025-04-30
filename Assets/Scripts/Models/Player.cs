@@ -1,9 +1,23 @@
 using UnityEngine;
 using UnityEngine.Animations;
+using Mirror;
+using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
-    public float health = 50.0f;
+  public Camera cam;
+  public void Awake()
+  {
+    Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+    if(isLocalPlayer) {
+      foreach(Camera camera in cameras) {
+        if (!camera.Equals(cam)) {
+          camera.enabled = false;
+        }
+      }
+    }
+  }
+  public float health = 50.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
