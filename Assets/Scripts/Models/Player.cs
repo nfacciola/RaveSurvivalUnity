@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.Animations;
 using Mirror;
 using UnityEngine.UIElements;
+using RaveSurvival;
 
 public class Player : NetworkBehaviour
 {
   public Camera cam;
+  public Gun gun;
   public Transform cameraPos;
   public float health = 50.0f;
   public void Start()
@@ -15,6 +17,7 @@ public class Player : NetworkBehaviour
       camera.transform.parent = cameraPos.transform;
       camera.transform.position = cameraPos.position;
       camera.transform.rotation = cameraPos.rotation;
+      gun.SetCam(camera);
     }
   }
     // Update is called once per frame
