@@ -2,15 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System.Collections.Generic;
 
-namespace RaveSurvival {
-  public class GameManager: NetworkBehaviour {
-    void Start() {
-        Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.InstanceID);
+namespace RaveSurvival 
+{
+	public class GameManager: NetworkBehaviour 
+	{
+		public List<Player> players;
 
-        foreach(Camera cam in cameras) {
-          
+        void Start()
+        {
+            players = new List<Player>(FindObjectsByType<Player>(FindObjectsSortMode.None));
+			SetLocalCamera();
         }
-      }
-  }
+
+		void SetLocalCamera()
+		{
+			foreach(Player player in players)
+			{
+				player.gameObject.transform.GetChild(1).GetComponent<Camera>().enabled = isLocalPlayer;
+			}
+		}
+    }
 }
