@@ -6,31 +6,65 @@ using RaveSurvival;
 
 public class Player : NetworkBehaviour
 {
-  public Camera cam;
-  public Gun gun;
-  public Transform cameraPos;
-  public float health = 50.0f;
-  public void Start()
-  {
-    Camera camera = FindFirstObjectByType<Camera>();
-    if(isLocalPlayer) {
-      camera.transform.parent = cameraPos.transform;
-      camera.transform.position = cameraPos.position;
-      camera.transform.rotation = cameraPos.rotation;
-      gun.SetCam(camera);
-    }
-  }
-    // Update is called once per frame
-    void Update()
+    // Reference to the player's camera
+    public Camera cam;
+
+    // Reference to the player's gun
+    public Gun gun;
+
+    // Transform representing the position of the camera
+    public Transform cameraPos;
+
+    // Player's health value
+    public float health = 50.0f;
+
+    /// <summary>
+    /// Unity's Start method, called before the first frame update.
+    /// Sets up the camera for the local player and links it to the gun.
+    /// </summary>
+    public void Start()
     {
-        
+        // Find the first camera in the scene
+        Camera camera = FindFirstObjectByType<Camera>();
+
+        // Check if this is the local player
+        if (isLocalPlayer)
+        {
+            // Attach the camera to the player's camera position
+            camera.transform.parent = cameraPos.transform;
+            camera.transform.position = cameraPos.position;
+            camera.transform.rotation = cameraPos.rotation;
+
+            // Link the camera to the gun
+            gun.SetCam(camera);
+        }
     }
 
-    public void TakeDamage(float dmg, GameObject killedBy) {
-      health -= dmg;
-      if (health <= 0) {
-        health = 0;
-        Debug.Log("You were just killed by: " + killedBy);
-      }
+    /// <summary>
+    /// Unity's Update method, called once per frame.
+    /// Currently empty but can be used for player-specific updates.
+    /// </summary>
+    void Update()
+    {
+        // Placeholder for future update logic
+    }
+
+    /// <summary>
+    /// Reduces the player's health when taking damage.
+    /// If health reaches zero, logs a message indicating the player was killed.
+    /// </summary>
+    /// <param name="dmg">Amount of damage to apply</param>
+    /// <param name="killedBy">GameObject that caused the player's death</param>
+    public void TakeDamage(float dmg, GameObject killedBy)
+    {
+        // Subtract damage from health
+        health -= dmg;
+
+        // Check if health has dropped to zero or below
+        if (health <= 0)
+        {
+            health = 0; // Ensure health doesn't go negative
+            Debug.Log("You were just killed by: " + killedBy); // Log the killer
+        }
     }
 }
