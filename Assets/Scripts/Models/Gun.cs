@@ -1,111 +1,88 @@
-using UnityEngine;
 using Mirror;
+using UnityEngine;
 
-namespace RaveSurvival
+public class Gun : NetworkBehaviour
 {
-  public class Gun : NetworkBehaviour
+  public float damage = 10f;
+  public float range = 100f;
+  public float fireRate = 15f;
+  private float nextTimeToFire = 0f;
+
+  public WeaponType weaponType = WeaponType.RAYCAST;
+
+  [SerializeField]
+  public Transform bulletStart;
+  public ParticleSystem muzzleFlash;
+  public GameObject impactEffect;
+
+  public GameObject projectile;
+
+  private AudioSource audioSource;
+  public AudioClip fireSound;
+    public enum WeaponType {
+    RAYCAST = 0,
+    PROJECTILE
+  }
+
+  void Start()
   {
-    // Damage dealt by the gun
-    public float damage = 10f;
+    audioSource = GetComponent<AudioSource>();
+  }
 
-    // Maximum range of the gun
-    public float range = 100f;
-
-    // Fire rate of the gun (shots per second)
-    public float fireRate = 15f;
-
-    // Reference to the first-person camera
-    [SerializeField]
-    private Camera fpsCam;
-
-    // Particle system for the muzzle flash effect
-    public ParticleSystem muzzleFlash;
-
-    // Prefab for the impact effect when a shot hits something
-    public GameObject impactEffect;
-
-    // Time when the gun can fire the next shot
-    private float nextTimeToFire = 0f;
-
-    /// <summary>
-    /// Sets the camera for the gun.
-    /// This is used to link the player's camera to the gun.
-    /// </summary>
-    /// <param name="cam">Camera to set</param>
-    public void SetCam(Camera cam)
+  // Update is called once per frame
+  void Update()
     {
-      fpsCam = cam;
-    }
-
-    /// <summary>
-    /// Unity's Update method, called once per frame.
-    /// Handles firing logic for the local player.
-    /// </summary>
-    void Update()
-    {
-        // Ensure only the local player can fire the gun
-        if (isLocalPlayer)
-        {
-            // Check if the fire button is pressed and the gun is ready to fire
-            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
-            {
-                // Calculate the next time the gun can fire
-                nextTimeToFire = Time.time + 1f / fireRate;
-
-                // Trigger the shooting logic
-                Shoot();
-            }
+        if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
+          nextTimeToFire = Time.time + (1f/fireRate);
+          Shoot();
         }
     }
 
-    /// <summary>
-    /// Handles the shooting logic for the gun.
-    /// Plays the muzzle flash and sends a command to the server to process the shot.
-    /// </summary>
-    void Shoot()
+    public void SetBulletStart(Transform start) {
+      bulletStart = start;
+    }
+
+    public void Shoot()
     {
         // Play the muzzle flash effect
         muzzleFlash.Play();
 
         // Get the origin and direction of the shot from the camera
-        Vector3 origin = fpsCam.transform.position;
-        Vector3 direction = fpsCam.transform.forward;
+        Transform origin = bulletStart.transform;
+        Vector3 direction = bulletStart.transform.forward;
 
         // Send the shot information to the server
         CmdShoot(origin, direction);
     }
 
-    /// <summary>
-    /// Command method executed on the server to process the shot.
-    /// Handles raycasting, damage application, and spawning impact effects.
-    /// </summary>
-    /// <param name="origin">Origin of the shot</param>
-    /// <param name="direction">Direction of the shot</param>
     [Command]
-    void CmdShoot(Vector3 origin, Vector3 direction)
-    {
+    void CmdShoot(Transform origin, Vector3 direction) { 
+      RpcPlayMuzzleFlash();
+      if(weaponType == WeaponType.RAYCAST) {
+        
         RaycastHit hit;
+        if (Physics.Raycast(origin.position, direction, out hit, range)) {
+          Enemy enemy = hit.transform.GetComponent<Enemy>();
+          if(enemy != null) {
+            enemy.TakeDamage(damage, bulletStart);
+          }
 
-        // Play the muzzle flash effect on all clients
-        RpcPlayMuzzleFlash();
-
-        // Perform a raycast to detect what the shot hits
-        if (Physics.Raycast(origin, direction, out hit, range))
-        {
-            Debug.Log(hit.transform.name); // Log the name of the object hit
-
-            // Check if the object hit is an enemy and apply damage
-            Enemy enemy = hit.transform.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-
-            // Spawn the impact effect at the hit point
-            GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            NetworkServer.Spawn(impactFx); // Spawn the effect on the network
-            Destroy(impactFx, 2f); // Destroy the effect after 2 seconds
+          GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+          Destroy(impactFx, 2f);
         }
+      }
+      else if(weaponType == WeaponType.PROJECTILE) {
+        if(Time.time >= nextTimeToFire) {
+          nextTimeToFire = Time.time + (1f/fireRate);
+          GameObject projectile = Instantiate(this.projectile);
+          projectile.transform.position = origin.position;
+          projectile.transform.rotation = origin.rotation;
+          projectile.GetComponent<Projectile>().FireBullet(15f);
+        }
+        
+      } else {
+
+      }
     }
 
     /// <summary>
@@ -117,8 +94,11 @@ namespace RaveSurvival
     {
         if (!isLocalPlayer)
         {
-            muzzleFlash.Play();
+            if(audioSource.clip == null || audioSource != fireSound) {
+          audioSource.clip = fireSound;
+        }
+        audioSource.Play();
+        muzzleFlash.Play();
         }
     }
-  }
 }

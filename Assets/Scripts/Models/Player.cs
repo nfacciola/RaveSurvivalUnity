@@ -36,7 +36,7 @@ public class Player : NetworkBehaviour
             camera.transform.rotation = cameraPos.rotation;
 
             // Link the camera to the gun
-            gun.SetCam(camera);
+            gun.SetBulletStart(camera.gameObject.transform);
         }
     }
 

@@ -1,36 +1,90 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
-namespace RaveSurvival
+public class Enemy : MonoBehaviour
 {
-  public class Enemy : MonoBehaviour
+    public float health = 50f;
+    public float range = 10f;
+    private NavMeshAgent agent;
+    private Transform target = null;
+    private IEnumerator behaviorCo = null;
+    public EnemyState enemyState = EnemyState.IDLE;
+    public Gun gun;
+
+    public enum EnemyState {
+      IDLE,
+      WANDER,
+      CHASE,
+      ATTACK,
+      DEAD
+    }
+
+  public void Start()
   {
-      // Enemy's health value
-      public float health = 50f;
-
-      /// <summary>
-      /// Reduces the enemy's health when taking damage.
-      /// If health reaches zero or below, the enemy is destroyed.
-      /// </summary>
-      /// <param name="dmg">Amount of damage to apply</param>
-      public void TakeDamage(float dmg) 
-      {
-        // Subtract damage from health
-        health -= dmg;
-
-        // Check if health has dropped to zero or below
-        if (health <= 0f) 
-        {
-          Die(); // Trigger the death logic
-        }
-      }
-
-      /// <summary>
-      /// Handles the enemy's death logic.
-      /// Destroys the enemy game object.
-      /// </summary>
-      void Die() 
-      {
-        Destroy(gameObject); // Remove the enemy from the scene
-      }
+    enemyState = EnemyState.IDLE;
+    agent = GetComponent<NavMeshAgent>();
   }
+
+  public void PlayerSpotted(Transform player) {
+    if(target != player && behaviorCo == null) {
+      target = player;
+      behaviorCo = AttackPlayer(target);
+      StartCoroutine(behaviorCo);
+    }
+  }
+
+  public IEnumerator AttackPlayer(Transform player) {
+    float wait = 0.2f;
+    while(true) {
+      if(Vector3.Distance(player.position, transform.position) > range) {
+        MoveToPlayer(player);
+      } else {
+        ShootPlayer(player);
+      }
+      yield return wait;
+    }
+  }
+  public void NoPlayerFound() {
+    if(behaviorCo != null) {
+      IEnumerator delay = DelayedStop(behaviorCo, 2f);
+      StartCoroutine(delay);
+      // StopCoroutine(behaviorCo);
+      // enemyState = EnemyState.IDLE;
+      behaviorCo = null;
+      target = null;
+    }
+  }
+
+  private void MoveToPlayer(Transform player) {
+    enemyState = EnemyState.CHASE;
+    transform.LookAt(player);
+    agent.SetDestination(player.position);
+  }
+
+  private void ShootPlayer(Transform player) {
+    enemyState = EnemyState.ATTACK;
+    agent.ResetPath();
+    transform.LookAt(player);
+    gun.Shoot();
+  }
+
+  public void TakeDamage(float dmg, Transform bulletDirection) {
+    transform.LookAt(bulletDirection);
+      health -= dmg;
+      if(health <= 0f) {
+        Die();
+      }
+    }
+
+    void Die() {
+      Destroy(gameObject);
+    }
+
+    private IEnumerator DelayedStop(IEnumerator co, float seconds) {
+      yield return new WaitForSeconds(seconds);
+      StopCoroutine(co);
+      enemyState = EnemyState.IDLE;
+    }
 }
