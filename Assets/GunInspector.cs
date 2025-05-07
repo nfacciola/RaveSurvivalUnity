@@ -18,11 +18,10 @@ public class GunInspector: Editor
     FloatField fireRate;
     EnumField weaponType;
     ObjectField fireSound;
-    ObjectField rayStart;
+    ObjectField bulletStart;
     ObjectField muzzleFlash;
     ObjectField impactEffect;
     ObjectField projectile;
-    ObjectField projectileStart;
   public override VisualElement CreateInspectorGUI()
   {
     // Create a new VisualElement to be the root of our Inspector UI.
@@ -33,11 +32,10 @@ public class GunInspector: Editor
     fireRate = new("FireRate") { bindingPath = "fireRate" };
     weaponType = new("Weapon Type") { bindingPath = "weaponType" };
     fireSound = new("Fire Sound") { bindingPath = "fireSound" };
-    rayStart = new("Ray Start") { bindingPath = "rayStart" };
+    bulletStart = new("Bullet Start") { bindingPath = "bulletStart" };
     muzzleFlash = new("Muzzle Flash") { bindingPath = "muzzleFlash" };
     impactEffect = new("Impact Effect") { bindingPath = "impactEffect"};
     projectile = new("Projectile") {bindingPath = "projectile"};
-    projectileStart = new("Projectile Start") {bindingPath = "projectileStart"};
 
     // Add a simple label.
     myInspector.Add(damage);
@@ -45,11 +43,10 @@ public class GunInspector: Editor
     myInspector.Add(fireRate);
     myInspector.Add(weaponType);
     myInspector.Add(fireSound);
-    myInspector.Add(rayStart);
+    myInspector.Add(bulletStart);
     myInspector.Add(muzzleFlash);
     myInspector.Add(impactEffect);
     myInspector.Add(projectile);
-    myInspector.Add(projectileStart);
 
     handler(weaponType);
 
@@ -62,17 +59,13 @@ public class GunInspector: Editor
     EnumField field = evt.currentTarget as EnumField;
     
     if (field.value.Equals(Gun.WeaponType.PROJECTILE)) {
-      myInspector.Remove(rayStart);
       myInspector.Remove(muzzleFlash);
       myInspector.Remove(impactEffect);
       myInspector.Add(projectile);
-      myInspector.Add(projectileStart);
     } else {
-      myInspector.Add(rayStart);
       myInspector.Add(muzzleFlash);
       myInspector.Add(impactEffect);
       myInspector.Remove(projectile);
-      myInspector.Remove(projectileStart);
     }
   }
 }

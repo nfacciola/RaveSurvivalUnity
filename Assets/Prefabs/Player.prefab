@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7411561530405517864}
   - component: {fileID: 7370697955241859718}
   - component: {fileID: 2826240507957344305}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4842,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6509009679118598874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4878,7 +4878,7 @@ GameObject:
   - component: {fileID: 3755613031242847479}
   - component: {fileID: 5441606127628325216}
   - component: {fileID: 5397257050923373164}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5032,7 +5032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6601766637005990088}
   - component: {fileID: 1845370260724861654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera Position
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -5083,7 +5083,7 @@ GameObject:
   - component: {fileID: 802306074563393034}
   - component: {fileID: 3589134906191153813}
   - component: {fileID: 5127892299022490985}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5166,9 +5166,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6601766637005990088}
     m_Modifications:
+    - target: {fileID: 100000, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 100016, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
       propertyPath: m_Name
       value: Rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 1dc2a27ad3a63d24bad7f1c6d159013e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5277,6 +5313,9 @@ MonoBehaviour:
   damage: 10
   range: 100
   fireRate: 15
-  fpsCam: {fileID: 0}
+  weaponType: 0
+  bulletStart: {fileID: 7411561530405517864}
   muzzleFlash: {fileID: 198113859317099842, guid: a5f095e8bd17d0440a45f535d2c6593b, type: 3}
   impactEffect: {fileID: 1806931374014481055, guid: e3630c7e107601d48b735283e5ea8b88, type: 3}
+  projectile: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: 24fa0215fc26f4239be505589d87ac68, type: 3}

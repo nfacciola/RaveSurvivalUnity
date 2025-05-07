@@ -4952,6 +4952,9 @@ MonoBehaviour:
   damage: 10
   range: 100
   fireRate: 15
-  fpsCam: {fileID: 0}
+  weaponType: 0
+  bulletStart: {fileID: 2470198516893144322}
   muzzleFlash: {fileID: 198113859317099842, guid: a5f095e8bd17d0440a45f535d2c6593b, type: 3}
   impactEffect: {fileID: 1806931374014481055, guid: e3630c7e107601d48b735283e5ea8b88, type: 3}
+  projectile: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: 24fa0215fc26f4239be505589d87ac68, type: 3}
