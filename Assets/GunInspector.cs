@@ -59,11 +59,9 @@ public class GunInspector: Editor
     EnumField field = evt.currentTarget as EnumField;
     
     if (field.value.Equals(Gun.WeaponType.PROJECTILE)) {
-      myInspector.Remove(muzzleFlash);
       myInspector.Remove(impactEffect);
       myInspector.Add(projectile);
     } else {
-      myInspector.Add(muzzleFlash);
       myInspector.Add(impactEffect);
       myInspector.Remove(projectile);
     }

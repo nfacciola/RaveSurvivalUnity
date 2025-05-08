@@ -16,7 +16,7 @@ public class Gun : NetworkBehaviour
   public GameObject impactEffect;
 
   public GameObject projectile;
-
+  
   private AudioSource audioSource;
   public AudioClip fireSound;
     public enum WeaponType {
@@ -68,11 +68,7 @@ public class Gun : NetworkBehaviour
 
     public void Shoot()
     {
-        if(this.weaponType == WeaponType.RAYCAST)
-        {
-          // Play the muzzle flash effect
-          muzzleFlash?.Play();
-        }
+        muzzleFlash.Play();
 
         if(bulletStart == null)
         {
@@ -116,8 +112,6 @@ public class Gun : NetworkBehaviour
         if(Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
           GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
-          // projectile.transform.position = originPosition;
-          // projectile.transform.rotation = origin.rotation;
           projectile.GetComponent<Projectile>().FireBullet(15f);
         }
       } 
@@ -155,9 +149,9 @@ public class Gun : NetworkBehaviour
     [ClientRpc]
     void RpcPlayMuzzleFlash()
     {
-        if (!isLocalPlayer)
+        if (isLocalPlayer)
         {
-            if(audioSource.clip == null || audioSource != fireSound) {
+            if(audioSource.clip == null || audioSource.clip != fireSound) {
           audioSource.clip = fireSound;
         }
         audioSource.Play();
