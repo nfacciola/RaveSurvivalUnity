@@ -24,14 +24,38 @@ public class Gun : NetworkBehaviour
     PROJECTILE
   }
 
-  void Start()
-  {
-    audioSource = GetComponent<AudioSource>();
-  }
+  private bool isReady = false;
+
+    void Awake()
+    {
+        if (this.weaponType == WeaponType.PROJECTILE && bulletStart == null)
+        {
+            bulletStart = transform.Find("bulletSpawn");
+            if (bulletStart == null)
+            {
+                Debug.LogError("Gun: bulletSpawn Transform not found on this weapon!");
+            }
+        }
+
+        audioSource = GetComponent<AudioSource>();
+    }
+
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        isReady = true;
+    }
 
   // Update is called once per frame
   void Update()
     {
+        if(!isReady)
+          return;
+
+        if(!isLocalPlayer)
+          return;
+
         if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
           Shoot();
@@ -44,24 +68,41 @@ public class Gun : NetworkBehaviour
 
     public void Shoot()
     {
-        // Play the muzzle flash effect
-        muzzleFlash.Play();
+        if(this.weaponType == WeaponType.RAYCAST)
+        {
+          // Play the muzzle flash effect
+          muzzleFlash?.Play();
+        }
+
+        if(bulletStart == null)
+        {
+          Debug.LogWarning("bulletStart us null, cannot shoot");
+          return;
+        }
 
         // Get the origin and direction of the shot from the camera
-        Transform origin = bulletStart.transform;
-        Vector3 direction = bulletStart.transform.forward;
+        Vector3 originPosition = bulletStart.position;
+        Vector3 direction = bulletStart.forward;
 
-        // Send the shot information to the server
-        CmdShoot(origin, direction);
+        //If this gun is server side (e.g on an enemy), do the shoot logic server side
+        if (isServer)
+        {
+          ServerShoot(originPosition, direction);
+        }
+        else
+        {
+          // Send the shot information to the server
+          CmdShoot(originPosition, direction);
+        }
     }
 
-    [Command]
-    void CmdShoot(Transform origin, Vector3 direction) { 
+    void ServerShoot(Vector3 originPosition, Vector3 direction)
+    {
       RpcPlayMuzzleFlash();
       if(weaponType == WeaponType.RAYCAST) {
         
         RaycastHit hit;
-        if (Physics.Raycast(origin.position, direction, out hit, range)) {
+        if (Physics.Raycast(originPosition, direction, out hit, range)) {
           Enemy enemy = hit.transform.GetComponent<Enemy>();
           if(enemy != null) {
             enemy.TakeDamage(damage, bulletStart);
@@ -74,15 +115,37 @@ public class Gun : NetworkBehaviour
       else if(weaponType == WeaponType.PROJECTILE) {
         if(Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
-          GameObject projectile = Instantiate(this.projectile);
-          projectile.transform.position = origin.position;
-          projectile.transform.rotation = origin.rotation;
+          GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+          // projectile.transform.position = originPosition;
+          // projectile.transform.rotation = origin.rotation;
           projectile.GetComponent<Projectile>().FireBullet(15f);
         }
-        
-      } else {
+      } 
+    }
 
+    [Command]
+    void CmdShoot(Vector3 originPosition, Vector3 direction) { 
+      RpcPlayMuzzleFlash();
+      if(weaponType == WeaponType.RAYCAST) {
+        
+        RaycastHit hit;
+        if (Physics.Raycast(originPosition, direction, out hit, range)) {
+          Enemy enemy = hit.transform.GetComponent<Enemy>();
+          if(enemy != null) {
+            enemy.TakeDamage(damage, bulletStart);
+          }
+
+          GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+          Destroy(impactFx, 2f);
+        }
       }
+      else if(weaponType == WeaponType.PROJECTILE) {
+        if(Time.time >= nextTimeToFire) {
+          nextTimeToFire = Time.time + (1f/fireRate);
+          GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+          projectile.GetComponent<Projectile>().FireBullet(15f);
+        }
+      } 
     }
 
     /// <summary>

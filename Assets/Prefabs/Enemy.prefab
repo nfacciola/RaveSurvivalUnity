@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7820342457905951559}
   - component: {fileID: 8426690763934590169}
   - component: {fileID: 237586014332411155}
+  - component: {fileID: 3642067153398246036}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
@@ -105,6 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88490d315e0346546a6c6bc30d7345da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   health: 50
   range: 16
   enemyState: 0
@@ -181,6 +185,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.0046498775, y: 0, z: -0.006963432}
+--- !u!114 &3642067153398246036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2514845422017126531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1169001949
+  serverOnly: 1
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &2824563927026215879
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +483,7 @@ MonoBehaviour:
   range: 100
   fireRate: 15
   weaponType: 1
-  bulletStart: {fileID: 0}
+  bulletStart: {fileID: 1269608002049616864}
   muzzleFlash: {fileID: 0}
   impactEffect: {fileID: 0}
   projectile: {fileID: 5238284925760208026, guid: 6ddd63bc0c17db042b90064b3edd0c18, type: 3}
