@@ -151,7 +151,6 @@ namespace RaveSurvival
         public override void OnServerReady(NetworkConnectionToClient conn)
         {
             base.OnServerReady(conn);
-            print("here");
         }
 
         /// <summary>

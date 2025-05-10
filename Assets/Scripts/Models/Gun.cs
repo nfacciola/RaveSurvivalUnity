@@ -58,7 +58,7 @@ public class Gun : NetworkBehaviour
 
         if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
-          Shoot();
+          Shoot(false);
         }
     }
 
@@ -66,7 +66,7 @@ public class Gun : NetworkBehaviour
       bulletStart = start;
     }
 
-    public void Shoot()
+    public void Shoot(bool isEnemy)
     {
         muzzleFlash.Play();
 
@@ -81,7 +81,7 @@ public class Gun : NetworkBehaviour
         Vector3 direction = bulletStart.forward;
 
         //If this gun is server side (e.g on an enemy), do the shoot logic server side
-        if (isServer)
+        if (isServer || isEnemy)
         {
           ServerShoot(originPosition, direction);
         }
@@ -112,6 +112,7 @@ public class Gun : NetworkBehaviour
         if(Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
           GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+          NetworkServer.Spawn(projectile);
           projectile.GetComponent<Projectile>().FireBullet(15f);
         }
       } 
@@ -137,6 +138,7 @@ public class Gun : NetworkBehaviour
         if(Time.time >= nextTimeToFire) {
           nextTimeToFire = Time.time + (1f/fireRate);
           GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+          NetworkServer.Spawn(projectile);
           projectile.GetComponent<Projectile>().FireBullet(15f);
         }
       } 

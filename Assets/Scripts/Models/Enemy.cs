@@ -68,7 +68,7 @@ public class Enemy : NetworkBehaviour
     enemyState = EnemyState.ATTACK;
     agent.ResetPath();
     transform.LookAt(player);
-    gun.Shoot();
+    gun.Shoot(true);
   }
 
   public void TakeDamage(float dmg, Transform bulletDirection) {
