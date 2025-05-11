@@ -68,12 +68,6 @@ public class Gun : NetworkBehaviour
 
     public void Shoot(bool isEnemy)
     {
-        if(Time.time < nextTimeToFire)
-        {
-          return;
-        }
-        nextTimeToFire = Time.time + (1f / fireRate);
-
         if(bulletStart == null)
         {
           Debug.LogWarning("bulletStart is null, cannot shoot");
@@ -84,10 +78,22 @@ public class Gun : NetworkBehaviour
         Vector3 originPosition = bulletStart.position;
         Vector3 direction = bulletStart.forward;
 
-        if(isLocalPlayer)
+        if(isEnemy)
+        {
+          if(Time.time < nextTimeToFire)
+          {
+            return;
+          }
+          nextTimeToFire = Time.time + (1f/fireRate);
+        }
+
+        if(isLocalPlayer && !isServer)
         {
           muzzleFlash.Play();
-          audioSource.Play();
+          if(!audioSource.isPlaying)
+          {
+            audioSource.Play();
+          }
         }
 
         //If this gun is server side (e.g on an enemy), do the shoot logic server side
@@ -165,7 +171,10 @@ public class Gun : NetworkBehaviour
       {
         audioSource.clip = fireSound;
       }
-      audioSource.Play();
+      if(!audioSource.isPlaying)
+      {
+        audioSource.Play();
+      }
       muzzleFlash.Play();
     }
 }
