@@ -928,6 +928,7 @@ MonoBehaviour:
   - {fileID: 2514845422017126531, guid: eb0f6178ad8c20943b3d154e127c23c0, type: 3}
   - {fileID: 1806931374014481055, guid: e3630c7e107601d48b735283e5ea8b88, type: 3}
   - {fileID: 1187833771790882, guid: a5f095e8bd17d0440a45f535d2c6593b, type: 3}
+  - {fileID: 5238284925760208026, guid: 6ddd63bc0c17db042b90064b3edd0c18, type: 3}
   - {fileID: 6039663293959229342, guid: 452912bd801777348a3f4ab6f95a8ffb, type: 3}
   - {fileID: 517824615678710069, guid: 65f70a811b292174ba222d5d26d5579c, type: 3}
   exceptionsDisconnect: 1
@@ -946,6 +947,8 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   playerGameplayPrefab: {fileID: 6039663293959229342, guid: 452912bd801777348a3f4ab6f95a8ffb, type: 3}
+  gameplayScene:
+    m_Handle: 0
 --- !u!1 &1251318832
 GameObject:
   m_ObjectHideFlags: 0
