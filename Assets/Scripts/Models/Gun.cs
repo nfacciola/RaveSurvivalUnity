@@ -98,7 +98,10 @@ public class Gun : NetworkBehaviour
 
     void ServerShoot(Vector3 originPosition, Vector3 direction)
     {
-      RpcPlayMuzzleFlash();
+      if(isServer)
+      {
+        RpcPlayMuzzleFlash();
+      }
       if(weaponType == WeaponType.RAYCAST) {
         
         RaycastHit hit;
