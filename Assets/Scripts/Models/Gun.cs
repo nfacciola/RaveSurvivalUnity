@@ -68,7 +68,7 @@ public class Gun : NetworkBehaviour
 
     public void Shoot(bool isEnemy)
     {
-        if(Time.time >= nextTimeToFire)
+        if(Time.time < nextTimeToFire)
         {
           return;
         }
