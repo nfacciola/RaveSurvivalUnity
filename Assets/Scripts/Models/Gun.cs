@@ -68,6 +68,12 @@ public class Gun : NetworkBehaviour
 
     public void Shoot(bool isEnemy)
     {
+        if(Time.time >= nextTimeToFire)
+        {
+          return;
+        }
+        nextTimeToFire = Time.time + (1f / fireRate);
+
         if(bulletStart == null)
         {
           Debug.LogWarning("bulletStart is null, cannot shoot");
@@ -96,16 +102,17 @@ public class Gun : NetworkBehaviour
         }
     }
 
+    [Server]
     void ServerShoot(Vector3 originPosition, Vector3 direction)
     {
-      if(isServer)
-      {
-        RpcPlayMuzzleFlash();
-      }
+
+      RpcPlayMuzzleFlash();
+
       if(weaponType == WeaponType.RAYCAST) {
         
         RaycastHit hit;
-        if (Physics.Raycast(originPosition, direction, out hit, range)) {
+        if (Physics.Raycast(originPosition, direction, out hit, range)) 
+        {
           Enemy enemy = hit.transform.GetComponent<Enemy>();
           if(enemy != null) {
             enemy.TakeDamage(damage, bulletStart);
@@ -116,12 +123,9 @@ public class Gun : NetworkBehaviour
         }
       }
       else if(weaponType == WeaponType.PROJECTILE) {
-        if(Time.time >= nextTimeToFire && NetworkServer.active) {
-          nextTimeToFire = Time.time + (1f/fireRate);
-          GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
-          NetworkServer.Spawn(projectile);
-          projectile.GetComponent<Projectile>().FireBullet(15f);
-        }
+        GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+        NetworkServer.Spawn(projectile);
+        projectile.GetComponent<Projectile>().FireBullet(15f);
       } 
     }
 
@@ -131,7 +135,8 @@ public class Gun : NetworkBehaviour
       if(weaponType == WeaponType.RAYCAST) {
         
         RaycastHit hit;
-        if (Physics.Raycast(originPosition, direction, out hit, range)) {
+        if (Physics.Raycast(originPosition, direction, out hit, range)) 
+        {
           Enemy enemy = hit.transform.GetComponent<Enemy>();
           if(enemy != null) {
             enemy.TakeDamage(damage, bulletStart);
@@ -141,13 +146,11 @@ public class Gun : NetworkBehaviour
           Destroy(impactFx, 2f);
         }
       }
-      else if(weaponType == WeaponType.PROJECTILE) {
-        if(Time.time >= nextTimeToFire) {
-          nextTimeToFire = Time.time + (1f/fireRate);
-          GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
-          NetworkServer.Spawn(projectile);
-          projectile.GetComponent<Projectile>().FireBullet(15f);
-        }
+      else if(weaponType == WeaponType.PROJECTILE) 
+      {
+        GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+        NetworkServer.Spawn(projectile);
+        projectile.GetComponent<Projectile>().FireBullet(15f);
       } 
     }
 

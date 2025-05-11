@@ -37,7 +37,7 @@ public class Enemy : NetworkBehaviour
   }
 
   public IEnumerator AttackPlayer(Transform player) {
-    float wait = 0.2f;
+    float wait = 0.25f;
     while(true) {
       if(Vector3.Distance(player.position, transform.position) > range) {
         MoveToPlayer(player);
