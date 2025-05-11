@@ -87,13 +87,10 @@ public class Gun : NetworkBehaviour
           nextTimeToFire = Time.time + (1f/fireRate);
         }
 
-        if(isLocalPlayer && !isServer)
+        if(isLocalPlayer)
         {
           muzzleFlash.Play();
-          if(!audioSource.isPlaying)
-          {
-            audioSource.Play();
-          }
+          audioSource.Play();
         }
 
         //If this gun is server side (e.g on an enemy), do the shoot logic server side
@@ -171,10 +168,7 @@ public class Gun : NetworkBehaviour
       {
         audioSource.clip = fireSound;
       }
-      if(!audioSource.isPlaying)
-      {
-        audioSource.Play();
-      }
+      audioSource.Play();
       muzzleFlash.Play();
     }
 }
