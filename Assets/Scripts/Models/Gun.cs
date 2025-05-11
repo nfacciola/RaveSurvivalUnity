@@ -80,11 +80,18 @@ public class Gun : NetworkBehaviour
 
         if(isEnemy)
         {
+          if(!isServer)
+          {
+            Debug.LogWarning("Enemy tried to shoot but not on the server");
+            return;
+          }
           if(Time.time < nextTimeToFire)
           {
             return;
           }
           nextTimeToFire = Time.time + (1f/fireRate);
+          ServerShoot(originPosition, direction);
+          return;
         }
 
         if(isLocalPlayer)
@@ -93,15 +100,14 @@ public class Gun : NetworkBehaviour
           audioSource.Play();
         }
 
-        //If this gun is server side (e.g on an enemy), do the shoot logic server side
-        if (isServer || isEnemy)
+        if (!isServer)
         {
-          ServerShoot(originPosition, direction);
+          CmdShoot(originPosition, direction);
         }
         else
         {
-          // Send the shot information to the server
-          CmdShoot(originPosition, direction);
+          //fallback case: host shooting
+          ServerShoot(originPosition, direction); 
         }
     }
 
