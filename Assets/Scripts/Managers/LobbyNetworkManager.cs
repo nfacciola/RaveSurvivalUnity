@@ -13,6 +13,7 @@ namespace RaveSurvival
     {
 
         public GameObject playerGameplayPrefab;
+        public Scene gameplayScene;
         // Overrides the base singleton so we don't
         // have to cast to this type everywhere.
         public static new LobbyNetworkManager singleton => (LobbyNetworkManager)NetworkManager.singleton;
@@ -93,6 +94,7 @@ namespace RaveSurvival
             if(newSceneName == "GameplayScene")
             {
                 this.playerPrefab = playerGameplayPrefab;
+                this.onlineScene = newSceneName;
             }
             base.ServerChangeScene(newSceneName);
         }

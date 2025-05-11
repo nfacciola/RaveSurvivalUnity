@@ -1,111 +1,166 @@
-using UnityEngine;
 using Mirror;
+using UnityEngine;
 
-namespace RaveSurvival
+public class Gun : NetworkBehaviour
 {
-  public class Gun : NetworkBehaviour
-  {
-    // Damage dealt by the gun
-    public float damage = 10f;
+  public float damage = 10f;
+  public float range = 100f;
+  public float fireRate = 15f;
+  private float nextTimeToFire = 0f;
 
-    // Maximum range of the gun
-    public float range = 100f;
+  public WeaponType weaponType = WeaponType.RAYCAST;
 
-    // Fire rate of the gun (shots per second)
-    public float fireRate = 15f;
+  [SerializeField]
+  public Transform bulletStart;
+  public ParticleSystem muzzleFlash;
+  public GameObject impactEffect;
 
-    // Reference to the first-person camera
-    [SerializeField]
-    private Camera fpsCam;
+  public GameObject projectile;
+  
+  private AudioSource audioSource;
+  public AudioClip fireSound;
+    public enum WeaponType {
+    RAYCAST = 0,
+    PROJECTILE
+  }
 
-    // Particle system for the muzzle flash effect
-    public ParticleSystem muzzleFlash;
+  private bool isReady = false;
 
-    // Prefab for the impact effect when a shot hits something
-    public GameObject impactEffect;
-
-    // Time when the gun can fire the next shot
-    private float nextTimeToFire = 0f;
-
-    /// <summary>
-    /// Sets the camera for the gun.
-    /// This is used to link the player's camera to the gun.
-    /// </summary>
-    /// <param name="cam">Camera to set</param>
-    public void SetCam(Camera cam)
+    void Awake()
     {
-      fpsCam = cam;
+        if (this.weaponType == WeaponType.PROJECTILE && bulletStart == null)
+        {
+            bulletStart = transform.Find("bulletSpawn");
+            if (bulletStart == null)
+            {
+                Debug.LogError("Gun: bulletSpawn Transform not found on this weapon!");
+            }
+        }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
-    /// <summary>
-    /// Unity's Update method, called once per frame.
-    /// Handles firing logic for the local player.
-    /// </summary>
-    void Update()
-    {
-        // Ensure only the local player can fire the gun
-        if (isLocalPlayer)
-        {
-            // Check if the fire button is pressed and the gun is ready to fire
-            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
-            {
-                // Calculate the next time the gun can fire
-                nextTimeToFire = Time.time + 1f / fireRate;
 
-                // Trigger the shooting logic
-                Shoot();
-            }
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        isReady = true;
+    }
+
+  // Update is called once per frame
+  void Update()
+    {
+        if(!isReady)
+          return;
+
+        if(!isLocalPlayer)
+          return;
+
+        if(Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
+          nextTimeToFire = Time.time + (1f/fireRate);
+          Shoot(false);
         }
     }
 
-    /// <summary>
-    /// Handles the shooting logic for the gun.
-    /// Plays the muzzle flash and sends a command to the server to process the shot.
-    /// </summary>
-    void Shoot()
+    public void SetBulletStart(Transform start) {
+      bulletStart = start;
+    }
+
+    public void Shoot(bool isEnemy)
     {
-        // Play the muzzle flash effect
-        muzzleFlash.Play();
+        if(bulletStart == null)
+        {
+          Debug.LogWarning("bulletStart is null, cannot shoot");
+          return;
+        }
 
         // Get the origin and direction of the shot from the camera
-        Vector3 origin = fpsCam.transform.position;
-        Vector3 direction = fpsCam.transform.forward;
+        Vector3 originPosition = bulletStart.position;
+        Vector3 direction = bulletStart.forward;
 
-        // Send the shot information to the server
-        CmdShoot(origin, direction);
+        if(isEnemy)
+        {
+          if(!isServer)
+          {
+            Debug.LogWarning("Enemy tried to shoot but not on the server");
+            return;
+          }
+          if(Time.time < nextTimeToFire)
+          {
+            return;
+          }
+          nextTimeToFire = Time.time + (1f/fireRate);
+          ServerShoot(originPosition, direction);
+          return;
+        }
+
+        if(isLocalPlayer)
+        {
+          muzzleFlash.Play();
+          audioSource.Play();
+        }
+
+        if (!isServer)
+        {
+          CmdShoot(originPosition, direction);
+        }
+        else
+        {
+          //fallback case: host shooting
+          ServerShoot(originPosition, direction); 
+        }
     }
 
-    /// <summary>
-    /// Command method executed on the server to process the shot.
-    /// Handles raycasting, damage application, and spawning impact effects.
-    /// </summary>
-    /// <param name="origin">Origin of the shot</param>
-    /// <param name="direction">Direction of the shot</param>
-    [Command]
-    void CmdShoot(Vector3 origin, Vector3 direction)
+    [Server]
+    void ServerShoot(Vector3 originPosition, Vector3 direction)
     {
+
+      RpcPlayMuzzleFlash();
+
+      if(weaponType == WeaponType.RAYCAST) {
+        
         RaycastHit hit;
-
-        // Play the muzzle flash effect on all clients
-        RpcPlayMuzzleFlash();
-
-        // Perform a raycast to detect what the shot hits
-        if (Physics.Raycast(origin, direction, out hit, range))
+        if (Physics.Raycast(originPosition, direction, out hit, range)) 
         {
-            Debug.Log(hit.transform.name); // Log the name of the object hit
+          Enemy enemy = hit.transform.GetComponent<Enemy>();
+          if(enemy != null) {
+            enemy.TakeDamage(damage, bulletStart);
+          }
 
-            // Check if the object hit is an enemy and apply damage
-            Enemy enemy = hit.transform.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-
-            // Spawn the impact effect at the hit point
-            GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            NetworkServer.Spawn(impactFx); // Spawn the effect on the network
-            Destroy(impactFx, 2f); // Destroy the effect after 2 seconds
+          GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+          Destroy(impactFx, 2f);
         }
+      }
+      else if(weaponType == WeaponType.PROJECTILE) {
+        GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+        NetworkServer.Spawn(projectile);
+        projectile.GetComponent<Projectile>().FireBullet(15f);
+      } 
+    }
+
+    [Command]
+    void CmdShoot(Vector3 originPosition, Vector3 direction) { 
+      RpcPlayMuzzleFlash();
+      if(weaponType == WeaponType.RAYCAST) {
+        
+        RaycastHit hit;
+        if (Physics.Raycast(originPosition, direction, out hit, range)) 
+        {
+          Enemy enemy = hit.transform.GetComponent<Enemy>();
+          if(enemy != null) {
+            enemy.TakeDamage(damage, bulletStart);
+          }
+
+          GameObject impactFx = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+          Destroy(impactFx, 2f);
+        }
+      }
+      else if(weaponType == WeaponType.PROJECTILE) 
+      {
+        GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
+        NetworkServer.Spawn(projectile);
+        projectile.GetComponent<Projectile>().FireBullet(15f);
+      } 
     }
 
     /// <summary>
@@ -115,10 +170,11 @@ namespace RaveSurvival
     [ClientRpc]
     void RpcPlayMuzzleFlash()
     {
-        if (!isLocalPlayer)
-        {
-            muzzleFlash.Play();
-        }
+      if(audioSource.clip == null || audioSource.clip != fireSound) 
+      {
+        audioSource.clip = fireSound;
+      }
+      audioSource.Play();
+      muzzleFlash.Play();
     }
-  }
 }
