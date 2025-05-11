@@ -109,7 +109,7 @@ public class Gun : NetworkBehaviour
         }
       }
       else if(weaponType == WeaponType.PROJECTILE) {
-        if(Time.time >= nextTimeToFire) {
+        if(Time.time >= nextTimeToFire && NetworkServer.active) {
           nextTimeToFire = Time.time + (1f/fireRate);
           GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
           NetworkServer.Spawn(projectile);
@@ -151,6 +151,8 @@ public class Gun : NetworkBehaviour
     [ClientRpc]
     void RpcPlayMuzzleFlash()
     {
+      if(NetworkServer.active)
+      {
         if (isLocalPlayer)
         {
             if(audioSource.clip == null || audioSource.clip != fireSound) {
@@ -159,5 +161,6 @@ public class Gun : NetworkBehaviour
         audioSource.Play();
         muzzleFlash.Play();
         }
+      }
     }
 }
