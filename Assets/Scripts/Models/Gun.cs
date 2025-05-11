@@ -68,17 +68,21 @@ public class Gun : NetworkBehaviour
 
     public void Shoot(bool isEnemy)
     {
-        muzzleFlash.Play();
-
         if(bulletStart == null)
         {
-          Debug.LogWarning("bulletStart us null, cannot shoot");
+          Debug.LogWarning("bulletStart is null, cannot shoot");
           return;
         }
 
         // Get the origin and direction of the shot from the camera
         Vector3 originPosition = bulletStart.position;
         Vector3 direction = bulletStart.forward;
+
+        if(isLocalPlayer)
+        {
+          muzzleFlash.Play();
+          audioSource.Play();
+        }
 
         //If this gun is server side (e.g on an enemy), do the shoot logic server side
         if (isServer || isEnemy)
@@ -151,13 +155,11 @@ public class Gun : NetworkBehaviour
     [ClientRpc]
     void RpcPlayMuzzleFlash()
     {
-      if (isLocalPlayer)
+      if(audioSource.clip == null || audioSource.clip != fireSound) 
       {
-          if(audioSource.clip == null || audioSource.clip != fireSound) {
         audioSource.clip = fireSound;
       }
       audioSource.Play();
       muzzleFlash.Play();
-      }
     }
 }
