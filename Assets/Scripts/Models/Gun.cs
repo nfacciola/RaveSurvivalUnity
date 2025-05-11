@@ -151,16 +151,13 @@ public class Gun : NetworkBehaviour
     [ClientRpc]
     void RpcPlayMuzzleFlash()
     {
-      if(NetworkServer.active)
+      if (isLocalPlayer)
       {
-        if (isLocalPlayer)
-        {
-            if(audioSource.clip == null || audioSource.clip != fireSound) {
-          audioSource.clip = fireSound;
-        }
-        audioSource.Play();
-        muzzleFlash.Play();
-        }
+          if(audioSource.clip == null || audioSource.clip != fireSound) {
+        audioSource.clip = fireSound;
+      }
+      audioSource.Play();
+      muzzleFlash.Play();
       }
     }
 }
