@@ -44,7 +44,7 @@ public class Enemy : NetworkBehaviour
       } else {
         ShootPlayer(player);
       }
-      yield return wait;
+      yield return new WaitForSeconds(wait);
     }
   }
   public void NoPlayerFound() {

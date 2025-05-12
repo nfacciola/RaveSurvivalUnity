@@ -27,20 +27,42 @@ public class Projectile : NetworkBehaviour
   {
     NetworkServer.Destroy(this.gameObject);
   }
-  void OnCollisionEnter(Collision collision)
-  {
-    if(!isServer)
-      return;
-    
-    if(collision.gameObject.tag == "Player") {
-      Player player = collision.gameObject.GetComponent<Player>();
-      if(player != null) {
-        player.TakeDamage(damage, gameObject);
-      }
+
+  // void OnCollisionEnter(Collision collision)
+  // {
+  //   if(!isServer)
+  //   {
+  //     return;
+  //   }
+      
+  //   //print(collision.collider.gameObject.tag);
+  //   if(collision.collider.gameObject.tag == "Player") {
+  //     Player player = collision.gameObject.GetComponent<Player>();
+  //     if(player != null) {
+  //       player.TakeDamage(damage, gameObject);
+  //     }
+  //   }
+  //   NetworkServer.Destroy(gameObject);
+  // }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(!isServer)
+        {
+          return;
+        }
+        if (other.gameObject.tag == "Player")
+        {
+          Player player = other.gameObject.GetComponent<Player>();
+          if(player != null)
+          {
+            player.TakeDamage(damage, gameObject);
+          }
+          NetworkServer.Destroy(gameObject);
+        }
     }
-    NetworkServer.Destroy(gameObject);
-  }
-  public void setDamage(float dmg) {
+
+    public void setDamage(float dmg) {
     damage = dmg;
   }
 }

@@ -59,7 +59,7 @@ public class Player : NetworkBehaviour
     {
         // Subtract damage from health
         health -= dmg;
-
+        Debug.Log("Player hit! health = " + health);
         // Check if health has dropped to zero or below
         if (health <= 0)
         {
