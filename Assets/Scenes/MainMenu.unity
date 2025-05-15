@@ -925,6 +925,7 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
+  - {fileID: 1307502192655796, guid: 1e821196e454b8f489fb214ed16d4fd3, type: 3}
   - {fileID: 2514845422017126531, guid: eb0f6178ad8c20943b3d154e127c23c0, type: 3}
   - {fileID: 1806931374014481055, guid: e3630c7e107601d48b735283e5ea8b88, type: 3}
   - {fileID: 1187833771790882, guid: a5f095e8bd17d0440a45f535d2c6593b, type: 3}
