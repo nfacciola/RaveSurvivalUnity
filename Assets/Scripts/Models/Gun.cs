@@ -94,14 +94,13 @@ public class Gun : NetworkBehaviour
         return;
       }
       nextTimeToFire = Time.time + (1f / fireRate);
-      ServerShoot(originPosition, direction);
-      //CmdShoot(originPosition, direction);
+      //ServerShoot(originPosition, direction);
+      CmdShoot(originPosition, direction);
       return;
     }
     CmdShoot(originPosition, direction);
   }
 
-  [Server]
   void ServerShoot(Vector3 originPosition, Vector3 direction)
   {
 
@@ -131,7 +130,7 @@ public class Gun : NetworkBehaviour
     }
   }
 
-  [Command]
+  [ClientCallback]
   void CmdShoot(Vector3 originPosition, Vector3 direction)
   {
     RpcPlayMuzzleFlash();

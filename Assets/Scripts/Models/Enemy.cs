@@ -51,8 +51,6 @@ public class Enemy : NetworkBehaviour
     if(behaviorCo != null) {
       IEnumerator delay = DelayedStop(behaviorCo, 2f);
       StartCoroutine(delay);
-      // StopCoroutine(behaviorCo);
-      // enemyState = EnemyState.IDLE;
       behaviorCo = null;
       target = null;
     }
