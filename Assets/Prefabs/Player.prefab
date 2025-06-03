@@ -237,7 +237,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  mouseSensitivity: 175
+  mouseSensitivity: 200
   playerBody: {fileID: 11793487347628270}
 --- !u!1 &8381021324200482159
 GameObject:

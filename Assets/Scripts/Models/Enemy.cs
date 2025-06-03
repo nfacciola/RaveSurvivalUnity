@@ -6,7 +6,7 @@ using Mirror;
 
 public class Enemy : NetworkBehaviour
 {
-    public float health = 50f;
+    [SyncVar] public float health = 50f;
     public float range = 10f;
     private NavMeshAgent agent;
     private Transform target = null;
@@ -70,14 +70,19 @@ public class Enemy : NetworkBehaviour
     transform.LookAt(player);
     gun.Shoot(true);
   }
-
   public void TakeDamage(float dmg, Transform bulletDirection) {
     transform.LookAt(bulletDirection);
-      health -= dmg;
-      if(health <= 0f) {
-        Die();
-      }
+    RpcHitEffect();
+    health -= dmg;
+    if(health <= 0f) {
+      Die();
     }
+  }
+
+  [ClientRpc]
+  public void RpcHitEffect() {
+    Debug.Log("Enemy Health: " + health);
+  }
 
     void Die() {
       Destroy(gameObject);

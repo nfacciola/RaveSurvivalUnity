@@ -6,39 +6,48 @@ using RaveSurvival;
 
 public class Player : NetworkBehaviour
 {
-    // Reference to the player's camera
-    public Camera cam;
+  // Reference to the player's camera
+  public Camera cam;
 
-    // Reference to the player's gun
-    public Gun gun;
+  // Reference to the player's gun
+  public Gun gun;
 
-    // Transform representing the position of the camera
-    public Transform cameraPos;
+  // Transform representing the position of the camera
+  public Transform cameraPos;
 
-    // Player's health value
-    public float health = 50.0f;
+  // Player's health value
+  [SyncVar] public float health = 50.0f;
 
-    /// <summary>
-    /// Unity's Start method, called before the first frame update.
-    /// Sets up the camera for the local player and links it to the gun.
-    /// </summary>
-    public void Start()
-    {
-        // Find the first camera in the scene
-        Camera camera = FindFirstObjectByType<Camera>();
+  public override void OnStartClient()
+  {
+    name = $"player[{netId}|{(isLocalPlayer ? "local" : "remote")}]";
+  }
 
-        // Check if this is the local player
-        if (isLocalPlayer)
-        {
-            // Attach the camera to the player's camera position
-            camera.transform.parent = cameraPos.transform;
-            camera.transform.position = cameraPos.position;
-            camera.transform.rotation = cameraPos.rotation;
+  public override void OnStartServer()
+  {
+    name = $"player[{netId}|server]";
+  }
 
-            // Link the camera to the gun
-            gun.SetBulletStart(camera.gameObject.transform);
-        }
-    }
+  /// <summary>
+  /// Unity's Start method, called before the first frame update.
+  /// Sets up the camera for the local player and links it to the gun.
+  /// </summary>
+  public void Start()
+  {
+    if (!isLocalPlayer) return;
+    // Find the first camera in the scene
+    Camera camera = FindFirstObjectByType<Camera>();
+
+    // Check if this is the local player
+    
+    // Attach the camera to the player's camera position
+    camera.transform.parent = cameraPos.transform;
+    camera.transform.position = cameraPos.position;
+    camera.transform.rotation = cameraPos.rotation;
+
+    // Link the camera to the gun
+    gun.SetBulletStart(camera.gameObject.transform);
+  }
 
     /// <summary>
     /// Unity's Update method, called once per frame.
