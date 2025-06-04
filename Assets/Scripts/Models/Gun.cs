@@ -69,7 +69,7 @@ public class Gun : NetworkBehaviour
   {
     bulletStart = start;
   }
-
+  [ClientCallback]
   public void Shoot(bool isEnemy)
   {
     if (bulletStart == null)
@@ -130,7 +130,7 @@ public class Gun : NetworkBehaviour
     }
   }
 
-  [ClientCallback]
+  [Command]
   void CmdShoot(Vector3 originPosition, Vector3 direction)
   {
     RpcPlayMuzzleFlash();
