@@ -40,8 +40,8 @@ namespace RaveSurvival
         void Update()
         {
             // Ensure the movement logic only applies to the local player
-            if (isLocalPlayer)
-            {
+            //if (isLocalPlayer)
+            //{
                 // Check if the player is grounded using a sphere at the groundCheck position
                 isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -73,7 +73,7 @@ namespace RaveSurvival
 
                 // Apply the vertical velocity to the player
                 controller.Move(velocity * Time.deltaTime);
-            }
+            //}
         }
     }
 }
