@@ -2,30 +2,33 @@ using UnityEngine;
 using Mirror;
 using System.Collections.Generic;
 
-public class SpawnManager : NetworkBehaviour
+namespace RaveSurvival
 {
-    public GameObject enemyPrefab;
-    public Transform spawnPointParent;
-    public List<Transform> spawnPoints = new List<Transform>();
-
-    void Start()
+    public class SpawnManager : NetworkBehaviour
     {
-        for(int i = 0; i < spawnPointParent.childCount; i++)
+        public GameObject enemyPrefab;
+        public Transform spawnPointParent;
+        public List<Transform> spawnPoints = new List<Transform>();
+
+        void Start()
         {
-            spawnPoints.Add(spawnPointParent.GetChild(i).transform);
+            for (int i = 0; i < spawnPointParent.childCount; i++)
+            {
+                spawnPoints.Add(spawnPointParent.GetChild(i).transform);
+            }
+            if (isServer)
+            {
+                SpawnEnemies();
+            }
         }
-        if(isServer)
-        {
-            SpawnEnemies();
-        }   
-    }
 
-    void SpawnEnemies()
-    {
-        foreach(Transform spawnPoint in spawnPoints)
+        void SpawnEnemies()
         {
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            NetworkServer.Spawn(enemy);
+            foreach (Transform spawnPoint in spawnPoints)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                NetworkServer.Spawn(enemy);
+            }
         }
     }
 }

@@ -6,13 +6,23 @@ using System.Collections.Generic;
 
 namespace RaveSurvival 
 {
-    public class GameManager : NetworkBehaviour 
+    public class GameManager : NetworkBehaviour
     {
         // Singleton instance of the GameManager
         public static GameManager instance = null;
 
         // List of all players in the game
         public List<Player> players;
+
+        public enum GameType
+        {
+            SinglePlayer,
+            LocalMultiplayer,
+            OnlineMultiplayer
+
+        };
+
+        public GameType gameType;
 
         /// <summary>
         /// Unity's Awake method, called when the script instance is being loaded.
@@ -22,11 +32,29 @@ namespace RaveSurvival
         {
             if (instance == null)
             {
-                instance = this; // Assign this instance as the singleton
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+                SceneManager.sceneLoaded += OnSceneLoaded; //add callback function on scene transistion
             }
             else
             {
-                Destroy(this.gameObject); // Destroy duplicate instances
+                Destroy(this.gameObject);
+            }
+        }
+
+        void OnDestroy()
+        {
+            if (instance == this)
+            {
+                SceneManager.sceneLoaded -= OnSceneLoaded;
+            }
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "DubstepDungeon")
+            {
+                Debug.Log($"The current game type is: {gameType}");
             }
         }
 
@@ -49,6 +77,15 @@ namespace RaveSurvival
             {
                 // Enable the camera for the local player and disable it for others
                 player.gameObject.transform.GetChild(1).GetComponent<Camera>().enabled = isLocalPlayer;
+            }
+        }
+
+        public void SelectGameTypeAndLoad(GameType type)
+        {
+            gameType = type;
+            if (type == GameType.SinglePlayer)
+            {
+                MenuManager.Instance.OnSinglePlayerClicked();
             }
         }
     }
