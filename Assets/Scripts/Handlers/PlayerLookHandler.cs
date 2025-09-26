@@ -34,8 +34,8 @@ namespace RaveSurvival
         /// </summary>
         void Update()
         {
-            if (isLocalPlayer)
-            {
+            //if (isLocalPlayer)
+            //{
                 // Get mouse input for horizontal and vertical movement
                 float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                 float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -51,7 +51,7 @@ namespace RaveSurvival
 
                 // Rotate the player's body horizontally based on mouse X input
                 playerBody.Rotate(Vector3.up * mouseX);
-            }
+            //}
         }
     }
 }
