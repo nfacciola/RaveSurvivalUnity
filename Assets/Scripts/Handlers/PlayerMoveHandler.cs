@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Mirror;
+using NUnit.Framework;
 
 namespace RaveSurvival
 {
@@ -39,41 +40,61 @@ namespace RaveSurvival
         /// </summary>
         void Update()
         {
-            // Ensure the movement logic only applies to the local player
-            //if (isLocalPlayer)
-            //{
-                // Check if the player is grounded using a sphere at the groundCheck position
-                isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            if (GameManager.Instance == null)
+            {
+                Debug.LogError("Error... GameManager is null when trying to move player...");
+                return;
+            }
 
-                // Reset vertical velocity if the player is grounded
-                if (isGrounded && velocity.y < 0)
+            if (GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
+            {
+                // Ensure the movement logic only applies to the local player
+                if (isLocalPlayer)
                 {
-                    velocity.y = -2f; // Small negative value to keep the player grounded
+                    PlayerMove();
                 }
-
-                // Get input for horizontal (x) and vertical (z) movement
-                float x = Input.GetAxis("Horizontal");
-                float z = Input.GetAxis("Vertical");
-
-                // Calculate the movement direction based on input and player orientation
-                Vector3 move = transform.right * x + transform.forward * z;
-
-                // Move the player using the CharacterController
-                controller.Move(move * speed * Time.deltaTime);
-
-                // Check if the jump button is pressed and the player is grounded
-                if (Input.GetButtonDown("Jump") && isGrounded)
-                {
-                    // Calculate the vertical velocity needed to achieve the desired jump height
-                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                }
-
-                // Apply gravity to the vertical velocity
-                velocity.y += gravity * Time.deltaTime;
-
-                // Apply the vertical velocity to the player
-                controller.Move(velocity * Time.deltaTime);
-            //}
+            }
+            else if (GameManager.Instance.gameType == GameManager.GameType.SinglePlayer)
+            {
+                PlayerMove();
+            }
+            
         }
+
+        void PlayerMove()
+        {
+            // Check if the player is grounded using a sphere at the groundCheck position
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            // Reset vertical velocity if the player is grounded
+            if (isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2f; // Small negative value to keep the player grounded
+            }
+
+            // Get input for horizontal (x) and vertical (z) movement
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+
+            // Calculate the movement direction based on input and player orientation
+            Vector3 move = transform.right * x + transform.forward * z;
+
+            // Move the player using the CharacterController
+            controller.Move(move * speed * Time.deltaTime);
+
+            // Check if the jump button is pressed and the player is grounded
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                // Calculate the vertical velocity needed to achieve the desired jump height
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+
+            // Apply gravity to the vertical velocity
+            velocity.y += gravity * Time.deltaTime;
+
+            // Apply the vertical velocity to the player
+            controller.Move(velocity * Time.deltaTime);
+        }
+
     }
 }
