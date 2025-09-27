@@ -9,7 +9,7 @@ namespace RaveSurvival
     public class GameManager : NetworkBehaviour
     {
         // Singleton instance of the GameManager
-        public static GameManager instance = null;
+        public static GameManager Instance = null;
 
         // List of all players in the game
         public List<Player> players;
@@ -30,9 +30,9 @@ namespace RaveSurvival
         /// </summary>
         void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
                 SceneManager.sceneLoaded += OnSceneLoaded; //add callback function on scene transistion
             }
@@ -44,7 +44,7 @@ namespace RaveSurvival
 
         void OnDestroy()
         {
-            if (instance == this)
+            if (Instance == this)
             {
                 SceneManager.sceneLoaded -= OnSceneLoaded;
             }
@@ -54,7 +54,7 @@ namespace RaveSurvival
         {
             if (scene.name == "DubstepDungeon")
             {
-                Debug.Log($"The current game type is: {gameType}");
+                SpawnManager.Instance.SpawnPlayers(gameType);
             }
         }
 
