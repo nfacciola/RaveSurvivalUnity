@@ -80,10 +80,10 @@ namespace RaveSurvival
             }
         }
 
-        public void SelectGameTypeAndLoad(GameType type)
+        public void SelectGameTypeAndLoad(int type)
         {
-            gameType = type;
-            if (type == GameType.SinglePlayer)
+            gameType = (GameType)type;
+            if (gameType == GameType.SinglePlayer)
             {
                 MenuManager.Instance.OnSinglePlayerClicked();
             }

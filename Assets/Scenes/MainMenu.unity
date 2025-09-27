@@ -1472,6 +1472,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3857392765426940989, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
+      propertyPath: gameType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1504,6 +1508,17 @@ MonoBehaviour:
   playerPrefab: {fileID: 6039663293959229342, guid: 452912bd801777348a3f4ab6f95a8ffb, type: 3}
   spawnPointParent: {fileID: 0}
   spawnPoints: []
+--- !u!114 &839438400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3857392765426940989, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
+  m_PrefabInstance: {fileID: 839438396}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839438397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312f3d403b7a98d44bb5c099b0e65df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &882544736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,10 +2866,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798601823}
-        m_TargetAssemblyTypeName: RaveSurvival.MenuManager, RaveSurvival
-        m_MethodName: OnSinglePlayerClicked
-        m_Mode: 1
+      - m_Target: {fileID: 839438400}
+        m_TargetAssemblyTypeName: RaveSurvival.GameManager, RaveSurvival
+        m_MethodName: SelectGameTypeAndLoad
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3432,9 +3447,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 882544739}
-  - {fileID: 839438396}
   - {fileID: 1306309690}
+  - {fileID: 524441918}
   - {fileID: 381421870}
   - {fileID: 798601820}
   - {fileID: 1061096305}
-  - {fileID: 524441918}
+  - {fileID: 839438396}
