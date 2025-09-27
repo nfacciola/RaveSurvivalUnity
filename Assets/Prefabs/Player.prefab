@@ -341,6 +341,10 @@ PrefabInstance:
       propertyPath: fireSound
       value: 
       objectReference: {fileID: 8300000, guid: 0e5ec5d798406aa4699be8c44dd7599f, type: 3}
+    - target: {fileID: 3222218904498122216, guid: d2bc40ebd1d2efb4ca309e67474a0f2d, type: 3}
+      propertyPath: _assetId
+      value: 2144925657
+      objectReference: {fileID: 0}
     - target: {fileID: 7602762214294482301, guid: d2bc40ebd1d2efb4ca309e67474a0f2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.288

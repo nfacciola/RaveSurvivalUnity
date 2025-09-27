@@ -69,7 +69,7 @@ public class Gun : NetworkBehaviour
 			return;
 		}
 
-		if (!isLocalPlayer && GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
+		if (GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer && !isLocalPlayer)
 		{
 			return;
 		}
