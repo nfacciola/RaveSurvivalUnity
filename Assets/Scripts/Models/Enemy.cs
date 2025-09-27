@@ -88,7 +88,7 @@ namespace RaveSurvival
 			}
 			else
 			{
-				gun.SinglePlayerShoot();
+				gun.SinglePlayerShoot(true);
 			}
 		}
 

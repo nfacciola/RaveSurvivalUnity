@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 5085476523149358727}
   - component: {fileID: 8254942715816975566}
   - component: {fileID: 494242056229387034}
-  - component: {fileID: 1949875958702454809}
   - component: {fileID: 3245112702600536982}
   - component: {fileID: 6574891125638976961}
   - component: {fileID: -4289337443925783578}
   - component: {fileID: -5800023130771172331}
+  - component: {fileID: 4534754308853014744}
   m_Layer: 0
   m_Name: PlasmaBullet
   m_TagString: Untagged
@@ -91,27 +91,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1949875958702454809
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5238284925760208026}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3245112702600536982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c3a4dac296c9d42b5e0717978ee14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  lifetime: 3
 --- !u!54 &6574891125638976961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -202,3 +185,24 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!135 &4534754308853014744
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238284925760208026}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

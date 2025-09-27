@@ -89,7 +89,7 @@ public class Player : NetworkBehaviour
         if (health <= 0)
         {
             health = 0; // Ensure health doesn't go negative
-            Debug.Log("You were just killed by: " + killedBy); // Log the killer
+            Debug.Log("You were just killed by: " + killedBy);
         }
     }
 }

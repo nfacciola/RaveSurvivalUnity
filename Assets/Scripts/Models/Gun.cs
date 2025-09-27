@@ -1,6 +1,7 @@
 using Mirror;
 using RaveSurvival;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class Gun : NetworkBehaviour
 {
@@ -83,7 +84,7 @@ public class Gun : NetworkBehaviour
 			}
 			else if (GameManager.Instance.gameType == GameManager.GameType.SinglePlayer)
 			{
-				SinglePlayerShoot();
+				SinglePlayerShoot(false);
 			}
 		}
 	}
@@ -138,7 +139,7 @@ public class Gun : NetworkBehaviour
 		}
 	}
 
-	public void SinglePlayerShoot()
+	public void SinglePlayerShoot(bool isEnemy)
 	{
 		if (bulletStart == null)
 		{
@@ -150,11 +151,19 @@ public class Gun : NetworkBehaviour
 		Vector3 originPosition = bulletStart.position;
 		Vector3 direction = bulletStart.forward;
 
-		if (Time.time < nextTimeToFire)
+		if (isEnemy)
 		{
+			if (Time.time < nextTimeToFire)
+			{
+				return;
+			}
 			nextTimeToFire = Time.time + (1f / fireRate);
 			LocalShoot(originPosition, direction);
 			return;
+		}
+		else
+		{
+			LocalShoot(originPosition, direction);
 		}
 		
 	}
@@ -181,7 +190,6 @@ public class Gun : NetworkBehaviour
 		else if (weaponType == WeaponType.PROJECTILE)
 		{
 			GameObject projectile = Instantiate(this.projectile, originPosition, Quaternion.LookRotation(direction));
-			NetworkServer.Spawn(projectile);
 			projectile.GetComponent<Projectile>().FireBullet(15f);
 		}
 	}

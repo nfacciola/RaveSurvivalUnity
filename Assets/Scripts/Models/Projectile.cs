@@ -1,46 +1,74 @@
 using UnityEngine;
 using Mirror;
+using RaveSurvival;
 
 public class Projectile : NetworkBehaviour
 {
-  private float damage = 5.0f;
-  private Rigidbody rb;
-  [SerializeField]
-  private float lifetime = 3f;
+	private float damage = 5.0f;
+	private Rigidbody rb;
+	[SerializeField]
+	private float lifetime = 3f;
 
-  void Awake() {
-    rb = GetComponent<Rigidbody>();
-  }
-    
-  public void FireBullet(float velocity) {
-    if (rb != null) {
-      rb.AddForce(transform.forward * velocity);
-    }
-    //Handle destrcution server side
-    if(isServer)
-    {
-      Invoke(nameof(DestroySelf), lifetime);
-    }
-  }
+	void Awake()
+	{
+		if (GameManager.Instance == null)
+		{
+			Debug.LogError("Error... trying to instantiate project when game manager is null!");
+			return;
+		}
 
-  void DestroySelf()
-  {
-    NetworkServer.Destroy(this.gameObject);
-  }
-  void OnCollisionEnter(Collision collision)
-  {
-    if(!isServer)
-      return;
-    
-    if(collision.gameObject.tag == "Player") {
-      Player player = collision.gameObject.GetComponent<Player>();
-      if(player != null) {
-        player.TakeDamage(damage, gameObject);
-      }
-    }
-    NetworkServer.Destroy(gameObject);
-  }
-  public void setDamage(float dmg) {
-    damage = dmg;
-  }
+		rb = GetComponent<Rigidbody>();
+	}
+
+	public void FireBullet(float velocity)
+	{
+		if (rb != null)
+		{
+			rb.AddForce(transform.forward * velocity);
+		}
+
+		if (GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
+		{
+			//Handle destrcution server side
+			if (isServer)
+			{
+				Invoke(nameof(DestroySelf), lifetime);
+			}
+		}
+		else if (GameManager.Instance.gameType == GameManager.GameType.SinglePlayer)
+		{
+			Destroy(this.gameObject, lifetime);
+		}
+		
+	}
+
+	void DestroySelf()
+	{
+		NetworkServer.Destroy(this.gameObject);
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (!isServer && GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
+			return;
+
+		if (other.gameObject.tag == "Player")
+		{
+			Player player = other.gameObject.GetComponent<Player>();
+			if (player != null)
+			{
+				player.TakeDamage(damage, gameObject);
+			}
+		}
+
+		if (GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
+			NetworkServer.Destroy(this.gameObject);
+		else
+			Destroy(this.gameObject);
+	}
+
+	public void SetDamage(float dmg)
+	{
+		damage = dmg;
+	}
 }
