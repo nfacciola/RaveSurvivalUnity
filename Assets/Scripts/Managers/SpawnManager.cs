@@ -2,30 +2,56 @@ using UnityEngine;
 using Mirror;
 using System.Collections.Generic;
 
-public class SpawnManager : NetworkBehaviour
+namespace RaveSurvival
 {
-    public GameObject enemyPrefab;
-    public Transform spawnPointParent;
-    public List<Transform> spawnPoints = new List<Transform>();
-
-    void Start()
+    public class SpawnManager : NetworkBehaviour
     {
-        for(int i = 0; i < spawnPointParent.childCount; i++)
+        public static SpawnManager Instance = null;
+        public GameObject enemyPrefab;
+        public GameObject playerPrefab;
+        public Transform spawnPointParent;
+        public List<Transform> spawnPoints = new List<Transform>();
+
+        void Awake()
         {
-            spawnPoints.Add(spawnPointParent.GetChild(i).transform);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
-        if(isServer)
-        {
-            SpawnEnemies();
-        }   
-    }
 
-    void SpawnEnemies()
-    {
-        foreach(Transform spawnPoint in spawnPoints)
+        // void Start()
+        // {
+        //     for (int i = 0; i < spawnPointParent.childCount; i++)
+        //     {
+        //         spawnPoints.Add(spawnPointParent.GetChild(i).transform);
+        //     }
+        //     if (isServer)
+        //     {
+        //         SpawnEnemies();
+        //     }
+        // }
+
+        public void SpawnPlayers(GameManager.GameType gameType)
         {
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            NetworkServer.Spawn(enemy);
+            if (gameType == GameManager.GameType.SinglePlayer)
+            {
+                Instantiate(playerPrefab);
+            }
+        }
+
+        void SpawnEnemies()
+        {
+            foreach (Transform spawnPoint in spawnPoints)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                NetworkServer.Spawn(enemy);
+            }
         }
     }
 }

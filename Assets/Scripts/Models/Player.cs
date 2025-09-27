@@ -27,17 +27,42 @@ public class Player : NetworkBehaviour
         // Find the first camera in the scene
         Camera camera = FindFirstObjectByType<Camera>();
 
-        // Check if this is the local player
-        if (isLocalPlayer)
+        if (GameManager.Instance == null)
         {
-            // Attach the camera to the player's camera position
-            camera.transform.parent = cameraPos.transform;
-            camera.transform.position = cameraPos.position;
-            camera.transform.rotation = cameraPos.rotation;
-
-            // Link the camera to the gun
-            gun.SetBulletStart(camera.gameObject.transform);
+            Debug.LogError("Error... GameManager is null on player start");
+            return;
         }
+
+        switch (GameManager.Instance.gameType)
+        {
+            case GameManager.GameType.OnlineMultiplayer:
+                // Check if this is the local player
+                if (isLocalPlayer)
+                {
+                    AttachCamera(camera); 
+                }
+                break;
+            case GameManager.GameType.SinglePlayer:
+                AttachCamera(camera);
+                break;
+            case GameManager.GameType.LocalMultiplayer:
+                //TODO implement this later
+                break;
+            default:
+                Debug.LogError("Invalid game type enum...");
+                break;
+        }
+    }
+
+    private void AttachCamera(Camera camera)
+    {
+        // Attach the camera to the player's camera position
+        camera.transform.parent = cameraPos.transform;
+        camera.transform.position = cameraPos.position;
+        camera.transform.rotation = cameraPos.rotation;
+
+        // Link the camera to the gun
+        gun.SetBulletStart(camera.gameObject.transform);
     }
 
     /// <summary>
