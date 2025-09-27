@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3138576256710932553}
   - component: {fileID: 3857392765426940989}
   - component: {fileID: 1391821692881943137}
+  - component: {fileID: 2489925265991966394}
   m_Layer: 0
   m_Name: Gameplay Managers
   m_TagString: Untagged
@@ -67,3 +68,22 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &2489925265991966394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818008958907798441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68878d7dfc578f48be8326e6bd23dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  enemyPrefab: {fileID: 2514845422017126531, guid: eb0f6178ad8c20943b3d154e127c23c0, type: 3}
+  playerPrefab: {fileID: 6039663293959229342, guid: 452912bd801777348a3f4ab6f95a8ffb, type: 3}
+  spawnPointParent: {fileID: 0}
+  spawnPoints: []

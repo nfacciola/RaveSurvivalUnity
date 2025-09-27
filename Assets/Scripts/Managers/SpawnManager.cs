@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using System.Collections.Generic;
+using System;
 
 namespace RaveSurvival
 {
@@ -37,6 +38,20 @@ namespace RaveSurvival
         //     }
         // }
 
+        public void FindSpawnPoints()
+        {
+            GameObject sp = GameObject.FindGameObjectWithTag("SpawnPointParent");
+            if (sp == null)
+            {
+                throw new InvalidOperationException("Spawn system requires a GameObject with tag 'SpawnPointParent' but none was found.");
+            }
+            spawnPointParent = sp.transform;
+            for (int i = 0; i < spawnPointParent.childCount; i++)
+            {
+                spawnPoints.Add(spawnPointParent.GetChild(i).transform);
+            }
+        }
+
         public void SpawnPlayers(GameManager.GameType gameType)
         {
             if (gameType == GameManager.GameType.SinglePlayer)
@@ -45,12 +60,13 @@ namespace RaveSurvival
             }
         }
 
-        void SpawnEnemies()
+        public void SpawnEnemies()
         {
             foreach (Transform spawnPoint in spawnPoints)
             {
                 GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                NetworkServer.Spawn(enemy);
+                if(GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
+                    NetworkServer.Spawn(enemy);
             }
         }
     }
