@@ -15,8 +15,11 @@ public class MenuManager : MonoBehaviour
         
     }
 
-    public void OnSinglePlayerClicked()
-    {
-        SceneManager.LoadScene("BensTestScene");
+    public void OnSinglePlayerClicked() {
+      SceneManager.LoadScene("BensTestScene");
+    }
+
+    public void OnExit() {
+      Application.Quit();
     }
 }
