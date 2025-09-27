@@ -1428,6 +1428,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2541213280
       objectReference: {fileID: 0}
+    - target: {fileID: 2489925265991966394, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 2514845422017126531, guid: eb0f6178ad8c20943b3d154e127c23c0, type: 3}
     - target: {fileID: 2818008958907798441, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
       propertyPath: m_Name
       value: Gameplay Managers
@@ -1472,48 +1476,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3857392765426940989, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
-      propertyPath: gameType
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2818008958907798441, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 839438398}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
---- !u!1 &839438397 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2818008958907798441, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
-  m_PrefabInstance: {fileID: 839438396}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &839438398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839438397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d68878d7dfc578f48be8326e6bd23dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  enemyPrefab: {fileID: 0}
-  playerPrefab: {fileID: 6039663293959229342, guid: 452912bd801777348a3f4ab6f95a8ffb, type: 3}
-  spawnPointParent: {fileID: 0}
-  spawnPoints: []
 --- !u!114 &839438400 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3857392765426940989, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
   m_PrefabInstance: {fileID: 839438396}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839438397}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 312f3d403b7a98d44bb5c099b0e65df4, type: 3}

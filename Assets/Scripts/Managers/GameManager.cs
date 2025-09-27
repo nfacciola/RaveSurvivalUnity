@@ -55,6 +55,8 @@ namespace RaveSurvival
             if (scene.name == "DubstepDungeon")
             {
                 SpawnManager.Instance.SpawnPlayers(gameType);
+                SpawnManager.Instance.FindSpawnPoints();
+                SpawnManager.Instance.SpawnEnemies();
             }
         }
 
