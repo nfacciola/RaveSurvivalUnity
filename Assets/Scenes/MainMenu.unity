@@ -1428,10 +1428,6 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2541213280
       objectReference: {fileID: 0}
-    - target: {fileID: 2489925265991966394, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
-      propertyPath: enemyPrefab
-      value: 
-      objectReference: {fileID: 2514845422017126531, guid: eb0f6178ad8c20943b3d154e127c23c0, type: 3}
     - target: {fileID: 2818008958907798441, guid: a45fc43e58f512b4697f6947d8331da5, type: 3}
       propertyPath: m_Name
       value: Gameplay Managers
