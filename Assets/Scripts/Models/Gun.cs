@@ -84,7 +84,10 @@ public class Gun : NetworkBehaviour
 			}
 			else if (GameManager.Instance.gameType == GameManager.GameType.SinglePlayer)
 			{
-				SinglePlayerShoot(false);
+				if (LayerMask.LayerToName(this.gameObject.layer) == "Player")
+				{
+					SinglePlayerShoot(false);
+				}
 			}
 		}
 	}
