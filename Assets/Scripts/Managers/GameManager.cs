@@ -52,7 +52,7 @@ namespace RaveSurvival
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "DubstepDungeon")
+            if (scene.name == "DubstepDungeonNF")
             {
                 SpawnManager.Instance.SpawnPlayers(gameType);
                 SpawnManager.Instance.FindSpawnPoints();

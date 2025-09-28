@@ -23,7 +23,7 @@ namespace RaveSurvival
 
     public void OnSinglePlayerClicked()
     {
-      SceneManager.LoadScene("DubstepDungeon");
+      SceneManager.LoadScene("DubstepDungeonNF");
     }
 
     public void OnExit()
