@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 30dd099587590e54581eea9e9cf3b685
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bottle
+    100004: Bottle Lid
+    100006: Bottle Liquid 1
+    100008: Bottle Liquid 2
+    100010: Bottle Liquid 3
+    100012: Bottle Liquid 4
+    100014: Bottle Liquid 5
+    400000: //RootNode
+    400002: Bottle
+    400004: Bottle Lid
+    400006: Bottle Liquid 1
+    400008: Bottle Liquid 2
+    400010: Bottle Liquid 3
+    400012: Bottle Liquid 4
+    400014: Bottle Liquid 5
+    2100000: Bottle 4
+    2100002: Bottle 3
+    2100004: Bottle 1
+    2100006: Bottle 2
+    2300000: Bottle
+    2300002: Bottle Lid
+    2300004: Bottle Liquid 1
+    2300006: Bottle Liquid 2
+    2300008: Bottle Liquid 3
+    2300010: Bottle Liquid 4
+    2300012: Bottle Liquid 5
+    3300000: Bottle
+    3300002: Bottle Lid
+    3300004: Bottle Liquid 1
+    3300006: Bottle Liquid 2
+    3300008: Bottle Liquid 3
+    3300010: Bottle Liquid 4
+    3300012: Bottle Liquid 5
+    4300000: Bottle Liquid 3
+    4300002: Bottle Liquid 2
+    4300004: Bottle Liquid 5
+    4300006: Bottle Liquid 4
+    4300008: Bottle Liquid 1
+    4300010: Bottle Lid
+    4300012: Bottle
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottle 1
+    second: {fileID: 2100000, guid: 0e31e7acad5f13c4eb778ce082c7c5ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottle 2
+    second: {fileID: 2100000, guid: 7678544bd82501548b2d1a7b9b9bd985, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottle 3
+    second: {fileID: 2100000, guid: 4efe8c4d9782cf34798e6a4551707ffe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottle 4
+    second: {fileID: 2100000, guid: de6180ed020e78d4a93a5546d9cad762, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165385
+  packageName: 9t5 Low Poly Nightclub
+  packageVersion: 1.0
+  assetPath: Assets/9t5 Low Poly Night Club/FBXs/Bottle.fbx
+  uploadId: 359102
