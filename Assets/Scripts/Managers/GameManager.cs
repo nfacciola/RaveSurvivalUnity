@@ -24,6 +24,8 @@ namespace RaveSurvival
 
         public GameType gameType;
 
+        public string starterScene;
+
         /// <summary>
         /// Unity's Awake method, called when the script instance is being loaded.
         /// Ensures there is only one instance of the GameManager (singleton pattern).
@@ -52,11 +54,12 @@ namespace RaveSurvival
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "DubstepDungeon")
+            Debug.Log($"Scene name: {scene.name}; Starter name: {starterScene}");
+            if (scene.name == starterScene)
             {
-                SpawnManager.Instance.SpawnPlayers(gameType);
                 SpawnManager.Instance.FindSpawnPoints();
-                SpawnManager.Instance.SpawnEnemies();
+                SpawnManager.Instance.SpawnPlayers(gameType);
+                StartCoroutine(SpawnManager.Instance.SpawnEnemies());
             }
         }
 
