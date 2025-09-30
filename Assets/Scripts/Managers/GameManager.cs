@@ -61,6 +61,13 @@ namespace RaveSurvival
                 SpawnManager.Instance.SpawnPlayers(gameType);
                 StartCoroutine(SpawnManager.Instance.SpawnEnemies());
             }
+
+            //Clean up bootstraper if it exists
+            GameBootstraper gameBootstraper = FindFirstObjectByType<GameBootstraper>();
+            if (gameBootstraper != null)
+            {
+                Destroy(gameBootstraper.gameObject);
+            }
         }
 
         /// <summary>
