@@ -2,6 +2,8 @@ using UnityEngine;
 using Mirror;
 using System.Collections.Generic;
 using System;
+using UnityEditor.SceneManagement;
+using System.Collections;
 
 namespace RaveSurvival
 {
@@ -11,7 +13,9 @@ namespace RaveSurvival
         public GameObject enemyPrefab;
         public GameObject playerPrefab;
         public Transform spawnPointParent;
-        public List<Transform> spawnPoints = new List<Transform>();
+        public List<Spawn> playerSpawnPoints = new();
+        public List<Spawn> enemySpawnPoints = new();
+        public List<Spawn> bossSpawnPoints = new();
 
         void Awake()
         {
@@ -22,21 +26,9 @@ namespace RaveSurvival
             }
             else
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
-
-        // void Start()
-        // {
-        //     for (int i = 0; i < spawnPointParent.childCount; i++)
-        //     {
-        //         spawnPoints.Add(spawnPointParent.GetChild(i).transform);
-        //     }
-        //     if (isServer)
-        //     {
-        //         SpawnEnemies();
-        //     }
-        // }
 
         public void FindSpawnPoints()
         {
@@ -48,25 +40,50 @@ namespace RaveSurvival
             spawnPointParent = sp.transform;
             for (int i = 0; i < spawnPointParent.childCount; i++)
             {
-                spawnPoints.Add(spawnPointParent.GetChild(i).transform);
+                Transform child = spawnPointParent.GetChild(i);
+                //Debug.Log($"Child: {child.name}");
+                Spawn spawn = child.gameObject.GetComponent<Spawn>();
+                if (spawn != null)
+                {
+                    if (spawn.GetSpawnUser() == Spawn.SpawnUser.player)
+                    {
+                        playerSpawnPoints.Add(spawn);
+                    }
+                    else if (spawn.GetSpawnUser() == Spawn.SpawnUser.enemy)
+                    {
+                        enemySpawnPoints.Add(spawn);
+                    }
+                    else if (spawn.GetSpawnUser() == Spawn.SpawnUser.boss)
+                    {
+                        bossSpawnPoints.Add(spawn);
+                    }
+                    else
+                    {
+                        Debug.LogError("invalid spawn user type");
+                    }
+                }
             }
+            Debug.Log($"{playerSpawnPoints.Count} player spawn(s), {enemySpawnPoints.Count} enemy spawn(s), {bossSpawnPoints.Count} boss spawn(s)");
         }
 
         public void SpawnPlayers(GameManager.GameType gameType)
         {
             if (gameType == GameManager.GameType.SinglePlayer)
             {
-                Instantiate(playerPrefab);
+                int rand = UnityEngine.Random.Range(0, playerSpawnPoints.Count - 1);
+                GameObject[] temp = { playerPrefab };
+                playerSpawnPoints[rand].SpawnCharacter(temp);
             }
         }
 
-        public void SpawnEnemies()
+        public IEnumerator SpawnEnemies()
         {
-            foreach (Transform spawnPoint in spawnPoints)
+            yield return new WaitForSeconds(10.0f);
+            foreach (Spawn spawnPoint in enemySpawnPoints)
             {
-                GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                if(GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
-                    NetworkServer.Spawn(enemy);
+                yield return new WaitForSeconds(2.0f);
+                GameObject[] temp = { enemyPrefab };
+                spawnPoint.SpawnCharacter(temp, 2.0f);
             }
         }
     }
