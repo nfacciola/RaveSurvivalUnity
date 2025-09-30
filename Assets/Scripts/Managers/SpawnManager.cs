@@ -3,6 +3,7 @@ using Mirror;
 using System.Collections.Generic;
 using System;
 using UnityEditor.SceneManagement;
+using System.Collections;
 
 namespace RaveSurvival
 {
@@ -40,7 +41,7 @@ namespace RaveSurvival
             for (int i = 0; i < spawnPointParent.childCount; i++)
             {
                 Transform child = spawnPointParent.GetChild(i);
-                Debug.Log($"Child: {child.name}");
+                //Debug.Log($"Child: {child.name}");
                 Spawn spawn = child.gameObject.GetComponent<Spawn>();
                 if (spawn != null)
                 {
@@ -70,17 +71,19 @@ namespace RaveSurvival
             if (gameType == GameManager.GameType.SinglePlayer)
             {
                 int rand = UnityEngine.Random.Range(0, playerSpawnPoints.Count - 1);
-                GameObject[] prefabs = { playerPrefab };
-                playerSpawnPoints[rand].SpawnCharacters(prefabs);
+                GameObject[] temp = { playerPrefab };
+                playerSpawnPoints[rand].SpawnCharacter(temp);
             }
         }
 
-        public void SpawnEnemies()
+        public IEnumerator SpawnEnemies()
         {
+            yield return new WaitForSeconds(10.0f);
             foreach (Spawn spawnPoint in enemySpawnPoints)
             {
-                GameObject[] prefabs = { enemyPrefab };
-                spawnPoint.SpawnCharacters(prefabs, 0.5f, 0.0f);
+                yield return new WaitForSeconds(2.0f);
+                GameObject[] temp = { enemyPrefab };
+                spawnPoint.SpawnCharacter(temp, 2.0f);
             }
         }
     }

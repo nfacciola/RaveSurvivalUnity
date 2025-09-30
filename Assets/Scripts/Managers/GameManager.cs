@@ -59,7 +59,7 @@ namespace RaveSurvival
             {
                 SpawnManager.Instance.FindSpawnPoints();
                 SpawnManager.Instance.SpawnPlayers(gameType);
-                SpawnManager.Instance.SpawnEnemies();
+                StartCoroutine(SpawnManager.Instance.SpawnEnemies());
             }
         }
 

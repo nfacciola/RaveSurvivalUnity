@@ -22,9 +22,9 @@ public class Spawn : MonoBehaviour
     public SpawnUser spawnUser = SpawnUser.enemy;
     public float radius = 0f;
 
-    public void SpawnCharacters(GameObject[] entities, float delay = 0.0f, float spwnRate = 0.0f)
+    public void SpawnCharacter(GameObject[] entities, float delay = 0.0f)
     {
-        IEnumerator spawn = SpawnEntities(entities, delay, spwnRate);
+        IEnumerator spawn = SpawnEntity(entities, delay);
         StartCoroutine(spawn);
     }
 
@@ -33,22 +33,18 @@ public class Spawn : MonoBehaviour
         return spawnUser;
     }
 
-    private IEnumerator SpawnEntities(GameObject[] entities, float delay, float spwnRate)
+    IEnumerator SpawnEntity(GameObject[] entities, float delay)
     {
-        // wait delay
-        yield return new WaitForSeconds(delay);
-
         foreach (GameObject entity in entities)
         {
-            SpawnEntity(entity);
-            yield return new WaitForSeconds(spwnRate);
+            yield return new WaitForSeconds(delay);
+            Temp(entity);
         }
     }
 
-    private void SpawnEntity(GameObject entity)
+    private void Temp(GameObject entity)
     {
         GameObject character = Instantiate(entity, transform.position, transform.rotation);
-        Debug.Log("Created entity: " + character.name);
         if (GameManager.Instance.gameType == GameManager.GameType.OnlineMultiplayer)
         {
             NetworkServer.Spawn(character);
