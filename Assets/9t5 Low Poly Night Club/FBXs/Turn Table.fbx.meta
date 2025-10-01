@@ -1,0 +1,168 @@
+fileFormatVersion: 2
+guid: 6a818b12f68bef24daf124b3386aa5d6
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Needle
+    100002: Record Holder
+    100004: Tempo
+    100006: //RootNode
+    400000: Needle
+    400002: Record Holder
+    400004: Tempo
+    400006: //RootNode
+    2100000: Turn Table 1
+    2100002: Turn Table 2
+    2100004: Turn Table 3
+    2100006: Turn Table 4
+    2100008: Turn Table 5
+    2100010: Turn Table 6
+    2100012: Turn Table 9
+    2100014: Turn Table 7
+    2100016: Turn Table 8
+    2300000: Needle
+    2300002: Record Holder
+    2300004: Tempo
+    2300006: //RootNode
+    3300000: Needle
+    3300002: Record Holder
+    3300004: Tempo
+    3300006: //RootNode
+    4300000: Turn Table
+    4300002: Needle
+    4300004: Record Holder
+    4300006: Tempo
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 1
+    second: {fileID: 2100000, guid: b2c48f8419ee56d4794694ae1c37f499, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 2
+    second: {fileID: 2100000, guid: 168348cf5f6942f4185ba0f46fee89e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 3
+    second: {fileID: 2100000, guid: 4c1cc6700930abf46b003c4d2d5d13e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 4
+    second: {fileID: 2100000, guid: dc01dc164e9aabd409fbc00a7be0dce3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 5
+    second: {fileID: 2100000, guid: 6530ea6961d9b3946a03849a873d40b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 6
+    second: {fileID: 2100000, guid: 753380a85928f914dae600220cd0ef15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 7
+    second: {fileID: 2100000, guid: 407db2250c923af4cafa2cc01df0846a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 8
+    second: {fileID: 2100000, guid: d0f5de317d1429b468ceaceb2fd077e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Turn Table 9
+    second: {fileID: 2100000, guid: 5c8758f7527518f4fa9c75df6621e70a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165385
+  packageName: 9t5 Low Poly Nightclub
+  packageVersion: 1.0
+  assetPath: Assets/9t5 Low Poly Night Club/FBXs/Turn Table.fbx
+  uploadId: 359102
