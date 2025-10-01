@@ -14,7 +14,6 @@ namespace RaveSurvival
 
         public float[] bands = new float[8];
 
-        AudioSource source;
         float[] spec;
         float[] smooth;
 
@@ -24,27 +23,11 @@ namespace RaveSurvival
             smooth = new float[bands.Length];
         }
 
-        void Start()
-        {
-            MusicConductor mc = MusicConductor.Instance;
-            if (mc)
-            {
-                source = mc.AnalysisSource;
-            }
-        }
-
         void Update()
         {
             // Fill spectrum
-            if (source && source.isPlaying)
-            {
-                source.GetSpectrumData(spec, 0, window);
-            }
-            else
-            {
-                AudioListener.GetSpectrumData(spec, 0, window);
-            }
-
+            AudioListener.GetSpectrumData(spec, 0, window);
+            
             int bin = 0;
             for (int b = 0; b < bands.Length; b++)
             {

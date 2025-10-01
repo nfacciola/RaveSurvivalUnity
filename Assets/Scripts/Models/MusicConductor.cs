@@ -21,11 +21,6 @@ namespace RaveSurvival
         private bool isPlaying = false;
         private int masterSamples = 0;
 
-        // Analysis source kept in perfect sync
-        [SerializeField]
-        private AudioSource analysisSource;
-        public AudioSource AnalysisSource => analysisSource;
-
         // Expose timing to others
         public double DspStartTime { get; private set; }
         public event Action<double> OnSongStarted;
@@ -40,22 +35,6 @@ namespace RaveSurvival
             }
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-
-            if (createAnalysisSource)
-            {
-                var go = new GameObject("Music_AnalysisSource");
-                go.transform.SetParent(transform, false);
-                analysisSource = go.AddComponent<AudioSource>();
-                analysisSource.playOnAwake = false;
-                //analysisSource.loop = true;
-                analysisSource.spatialBlend = 0f; // 2D
-                analysisSource.dopplerLevel = 0f;
-                if (analysisMixer)
-                {
-                    analysisSource.outputAudioMixerGroup = analysisMixer;
-                }
-                analysisSource.volume = 0f;
-            }
         }
 
         void Start()
@@ -63,21 +42,6 @@ namespace RaveSurvival
             if (track != null && playOnStart)
             {
                 StartTrack();
-            }
-        }
-
-        public void Update()
-        {
-            if (!isPlaying || track == null)
-            {
-                return;
-            }
-
-            // Use analysisSource for master time (stable no matter where player stands)
-            AudioSource first = analysisSource != null ? analysisSource : (speakers.Count > 0 ? speakers[0].source : null);
-            if (first != null && first.isPlaying)
-            {
-                masterSamples = first.timeSamples;
             }
         }
 
@@ -116,12 +80,6 @@ namespace RaveSurvival
                 //src.loop = true;
                 src.PlayScheduled(DspStartTime);
             }
-            if (analysisSource != null)
-            {
-                analysisSource.clip = track;
-                //analysisSource.loop = true;
-                analysisSource.PlayScheduled(DspStartTime);
-            }
 
             isPlaying = true;
             OnSongStarted?.Invoke(DspStartTime);
@@ -136,10 +94,6 @@ namespace RaveSurvival
             foreach (Speaker s in speakers)
             {
                 s.source.Stop();
-            }
-            if (analysisSource)
-            {
-                analysisSource.Stop();
             }
 
             isPlaying = false;
