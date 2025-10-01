@@ -1,0 +1,434 @@
+fileFormatVersion: 2
+guid: 325df6cd16df9f84b818a39e74431c3b
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: 1C Effect
+    100002: 1C High
+    100004: 1C Line Switch
+    100006: 1C Low
+    100008: 1C Mid
+    100010: 1C Thru
+    100012: 1C Trim
+    100014: 1C Volume
+    100016: 2C Effect
+    100018: 2C High
+    100020: 2C Line Switch
+    100022: 2C Low
+    100024: 2C Mid
+    100026: 2C Thru
+    100028: 2C Trim
+    100030: 2C Volume
+    100032: 3C Effect
+    100034: 3C High
+    100036: 3C Line Switch
+    100038: 3C Low
+    100040: 3C Mid
+    100042: 3C Thru
+    100044: 3C Trim
+    100046: 3C Volume
+    100048: 4C Effect
+    100050: 4C High
+    100052: 4C Line Switch
+    100054: 4C Low
+    100056: 4C Mid
+    100058: 4C Thru
+    100060: 4C Trim
+    100062: 4C Volume
+    100064: Balance Dial
+    100066: Booth Monitor Dial
+    100068: Channel Dial
+    100070: Channel Fader
+    100072: Cross Fader
+    100074: Crossfade
+    100076: Effects List Dial
+    100078: EQ Curve
+    100080: Headphones Dial 2
+    100082: Heaphones Dial 1
+    100084: Master Level Dial
+    100086: Mic High
+    100088: Mic Level 1
+    100090: Mic Level 2
+    100092: Mic Low
+    100094: Mic On/Off
+    100096: //RootNode
+    100098: Mono/Stereo
+    400000: 1C Effect
+    400002: 1C High
+    400004: 1C Line Switch
+    400006: 1C Low
+    400008: 1C Mid
+    400010: 1C Thru
+    400012: 1C Trim
+    400014: 1C Volume
+    400016: 2C Effect
+    400018: 2C High
+    400020: 2C Line Switch
+    400022: 2C Low
+    400024: 2C Mid
+    400026: 2C Thru
+    400028: 2C Trim
+    400030: 2C Volume
+    400032: 3C Effect
+    400034: 3C High
+    400036: 3C Line Switch
+    400038: 3C Low
+    400040: 3C Mid
+    400042: 3C Thru
+    400044: 3C Trim
+    400046: 3C Volume
+    400048: 4C Effect
+    400050: 4C High
+    400052: 4C Line Switch
+    400054: 4C Low
+    400056: 4C Mid
+    400058: 4C Thru
+    400060: 4C Trim
+    400062: 4C Volume
+    400064: Balance Dial
+    400066: Booth Monitor Dial
+    400068: Channel Dial
+    400070: Channel Fader
+    400072: Cross Fader
+    400074: Crossfade
+    400076: Effects List Dial
+    400078: EQ Curve
+    400080: Headphones Dial 2
+    400082: Heaphones Dial 1
+    400084: Master Level Dial
+    400086: Mic High
+    400088: Mic Level 1
+    400090: Mic Level 2
+    400092: Mic Low
+    400094: Mic On/Off
+    400096: //RootNode
+    400098: Mono/Stereo
+    2100000: Mixer 1
+    2100002: Mixer 11
+    2100004: Mixer 13
+    2100006: Mixer 12
+    2100008: Mixer 2
+    2100010: Mixer 3
+    2100012: Mixer 4
+    2100014: Mixer 5
+    2100016: Mixer14
+    2100018: Mixer 15
+    2100020: Mixer 16
+    2100022: Mixer 17
+    2100024: Mixer 8
+    2100026: Mixer 9
+    2100028: Mixer 18
+    2300000: 1C Effect
+    2300002: 1C High
+    2300004: 1C Line Switch
+    2300006: 1C Low
+    2300008: 1C Mid
+    2300010: 1C Thru
+    2300012: 1C Trim
+    2300014: 1C Volume
+    2300016: 2C Effect
+    2300018: 2C High
+    2300020: 2C Line Switch
+    2300022: 2C Low
+    2300024: 2C Mid
+    2300026: 2C Thru
+    2300028: 2C Trim
+    2300030: 2C Volume
+    2300032: 3C Effect
+    2300034: 3C High
+    2300036: 3C Line Switch
+    2300038: 3C Low
+    2300040: 3C Mid
+    2300042: 3C Thru
+    2300044: 3C Trim
+    2300046: 3C Volume
+    2300048: 4C Effect
+    2300050: 4C High
+    2300052: 4C Line Switch
+    2300054: 4C Low
+    2300056: 4C Mid
+    2300058: 4C Thru
+    2300060: 4C Trim
+    2300062: 4C Volume
+    2300064: Balance Dial
+    2300066: Booth Monitor Dial
+    2300068: Channel Dial
+    2300070: Channel Fader
+    2300072: Cross Fader
+    2300074: Crossfade
+    2300076: Effects List Dial
+    2300078: EQ Curve
+    2300080: Headphones Dial 2
+    2300082: Heaphones Dial 1
+    2300084: Master Level Dial
+    2300086: Mic High
+    2300088: Mic Level 1
+    2300090: Mic Level 2
+    2300092: Mic Low
+    2300094: Mic On/Off
+    2300096: //RootNode
+    2300098: Mono/Stereo
+    3300000: 1C Effect
+    3300002: 1C High
+    3300004: 1C Line Switch
+    3300006: 1C Low
+    3300008: 1C Mid
+    3300010: 1C Thru
+    3300012: 1C Trim
+    3300014: 1C Volume
+    3300016: 2C Effect
+    3300018: 2C High
+    3300020: 2C Line Switch
+    3300022: 2C Low
+    3300024: 2C Mid
+    3300026: 2C Thru
+    3300028: 2C Trim
+    3300030: 2C Volume
+    3300032: 3C Effect
+    3300034: 3C High
+    3300036: 3C Line Switch
+    3300038: 3C Low
+    3300040: 3C Mid
+    3300042: 3C Thru
+    3300044: 3C Trim
+    3300046: 3C Volume
+    3300048: 4C Effect
+    3300050: 4C High
+    3300052: 4C Line Switch
+    3300054: 4C Low
+    3300056: 4C Mid
+    3300058: 4C Thru
+    3300060: 4C Trim
+    3300062: 4C Volume
+    3300064: Balance Dial
+    3300066: Booth Monitor Dial
+    3300068: Channel Dial
+    3300070: Channel Fader
+    3300072: Cross Fader
+    3300074: Crossfade
+    3300076: Effects List Dial
+    3300078: EQ Curve
+    3300080: Headphones Dial 2
+    3300082: Heaphones Dial 1
+    3300084: Master Level Dial
+    3300086: Mic High
+    3300088: Mic Level 1
+    3300090: Mic Level 2
+    3300092: Mic Low
+    3300094: Mic On/Off
+    3300096: //RootNode
+    3300098: Mono/Stereo
+    4300000: Mixer
+    4300002: Cross Fader
+    4300004: Channel Fader
+    4300006: EQ Curve
+    4300008: Balance Dial
+    4300010: Master Level Dial
+    4300012: 4C Effect
+    4300014: 3C Effect
+    4300016: 2C Effect
+    4300018: 1C Effect
+    4300020: Booth Monitor Dial
+    4300022: Crossfade
+    4300024: Mono/Stereo
+    4300026: Channel Dial
+    4300028: Effects List Dial
+    4300030: 4C Line Switch
+    4300032: 3C Line Switch
+    4300034: 2C Line Switch
+    4300036: 1C Line Switch
+    4300038: Mic On/Off
+    4300040: Mic Level 1
+    4300042: Mic Level 2
+    4300044: Mic High
+    4300046: Mic Low
+    4300048: 4C Thru
+    4300050: 3C Thru
+    4300052: 2C Thru
+    4300054: 1C Thru
+    4300056: 4C Trim
+    4300058: 3C Trim
+    4300060: 2C Trim
+    4300062: 3C Low
+    4300064: 3C Mid
+    4300066: 3C High
+    4300068: 4C High
+    4300070: 4C Mid
+    4300072: 4C Low
+    4300074: 2C Low
+    4300076: 2C Mid
+    4300078: 2C High
+    4300080: 1C Trim
+    4300082: 1C High
+    4300084: 1C Mid
+    4300086: 1C Low
+    4300088: Heaphones Dial 1
+    4300090: 4C Volume
+    4300092: 3C Volume
+    4300094: 2C Volume
+    4300096: 1C Volume
+    4300098: Headphones Dial 2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 1
+    second: {fileID: 2100000, guid: ccddaa5429bb4d94fb2e6470dc366f2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 11
+    second: {fileID: 2100000, guid: 56aa048c3cf569d45824b2598c83ccee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 12
+    second: {fileID: 2100000, guid: fc854d6b9b7394b4e9d54da90fe881d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 13
+    second: {fileID: 2100000, guid: 8e21f9f36610bc4479e409e82a9fb090, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 15
+    second: {fileID: 2100000, guid: 05dfac09f76a23c4eb98cda55b362e0a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 16
+    second: {fileID: 2100000, guid: f7f49fada897f544caeb025325f6162f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 17
+    second: {fileID: 2100000, guid: e34ed8561db0bb44ab08f41aa6e1d0dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 18
+    second: {fileID: 2100000, guid: a0fbe9c70e94e284e9b3ec1afb90793a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 2
+    second: {fileID: 2100000, guid: 942180a916bd3f64c9517ed7df090a7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 3
+    second: {fileID: 2100000, guid: 37d7b4c9228aa8e43921928f85c8d21a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 4
+    second: {fileID: 2100000, guid: 05a53c3286bd25f4cab7d5f3c7eb4634, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 5
+    second: {fileID: 2100000, guid: 66c7c95f1e81da8469f3659fcbd9bda7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 8
+    second: {fileID: 2100000, guid: d7fdf9d602c581144a16459212ba5078, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer 9
+    second: {fileID: 2100000, guid: a1a1e31b66b861742a63b8ffcfaf42a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mixer14
+    second: {fileID: 2100000, guid: afe4b1a0b7a499b4e97588a63fbd4f56, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165385
+  packageName: 9t5 Low Poly Nightclub
+  packageVersion: 1.0
+  assetPath: Assets/9t5 Low Poly Night Club/FBXs/Mixer.fbx
+  uploadId: 359102

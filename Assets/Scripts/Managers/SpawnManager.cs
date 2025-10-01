@@ -41,7 +41,6 @@ namespace RaveSurvival
             for (int i = 0; i < spawnPointParent.childCount; i++)
             {
                 Transform child = spawnPointParent.GetChild(i);
-                //Debug.Log($"Child: {child.name}");
                 Spawn spawn = child.gameObject.GetComponent<Spawn>();
                 if (spawn != null)
                 {
