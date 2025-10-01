@@ -154,9 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   track: {fileID: 0}
   playOnStart: 1
-  analysisMixer: {fileID: 2097211023299333283, guid: 33e3a85a1acb8474b9f906958d7655a3, type: 2}
-  createAnalysisSource: 0
+  musicMixerGroup: {fileID: 2097211023299333283, guid: 33e3a85a1acb8474b9f906958d7655a3, type: 2}
   analyzer: {fileID: 8720265164588296883}
+  analysisSource: {fileID: 0}
 --- !u!114 &8720265164588296883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,8 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fftSize: 512
   window: 5
-  sensitivity: 3
-  fallSpeed: 8
+  gain: 5
+  attackHz: 25
+  releaseHz: 8
   bands:
   - 0
   - 0

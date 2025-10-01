@@ -95,7 +95,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Analysis (Muted)
+  m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 08115e65c35a12f4d8583425e985d0df
   m_Children: []

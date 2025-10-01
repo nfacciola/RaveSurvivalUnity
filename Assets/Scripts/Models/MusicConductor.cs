@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections.Generic;
 using System;
 
@@ -13,13 +14,14 @@ namespace RaveSurvival
         public bool playOnStart = true;
 
         [Header("Analysis")]
-        public UnityEngine.Audio.AudioMixerGroup analysisMixer;
-        public bool createAnalysisSource = true;
+        public AudioMixerGroup musicMixerGroup;  
         public AudioAnalyzer analyzer;
 
+        [SerializeField]
+        private AudioSource analysisSource;
         private readonly List<Speaker> speakers = new();
         private bool isPlaying = false;
-        private int masterSamples = 0;
+        //private int masterSamples = 0;
 
         // Expose timing to others
         public double DspStartTime { get; private set; }
@@ -35,6 +37,15 @@ namespace RaveSurvival
             }
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            // Build analysis source
+            analysisSource = gameObject.AddComponent<AudioSource>();
+            analysisSource.outputAudioMixerGroup = musicMixerGroup;
+            //analysisSource.loop = true;
+            analysisSource.playOnAwake = false;
+            // 2D sound
+            analysisSource.spatialBlend = 0f; 
+            analysisSource.volume = 1f;
         }
 
         void Start()
@@ -55,13 +66,6 @@ namespace RaveSurvival
             {
                 StartTrack();
             }
-            else if (isPlaying && track != null)
-            {
-                s.source.clip = track;
-                //s.source.loop = true;
-                s.source.timeSamples = masterSamples;
-                s.source.Play();
-            }
         }
 
         public void Unregister(Speaker s) => speakers.Remove(s);
@@ -81,9 +85,13 @@ namespace RaveSurvival
                 src.PlayScheduled(DspStartTime);
             }
 
+            analysisSource.clip = track;
+            analysisSource.PlayScheduled(DspStartTime);
+
             isPlaying = true;
-            OnSongStarted?.Invoke(DspStartTime);
         }
+
+        public AudioSource GetAnalysisSource() => analysisSource;
 
         public void StopTrack()
         {
@@ -97,7 +105,6 @@ namespace RaveSurvival
             }
 
             isPlaying = false;
-            OnSongStopped?.Invoke();
         }
 
         public void SetTrack(AudioClip audioClip)

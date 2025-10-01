@@ -8,7 +8,7 @@ namespace RaveSurvival
         public FFTWindow window = FFTWindow.BlackmanHarris;
 
         [Header("Shaping")]
-        [Range(1f, 100f)] public float gain = 20f;
+        [Range(1f, 100f)] public float gain = 5f;
         [Range(1f, 60f)] public float attackHz = 25f;
         [Range(1f, 60f)] public float releaseHz = 8f;
 
@@ -17,16 +17,31 @@ namespace RaveSurvival
         float[] spec;
         float[] smooth;
 
+        private AudioSource source;
+
         void Awake()
         {
             spec   = new float[fftSize];
             smooth = new float[bands.Length];
         }
 
+        void Start()
+        {
+            if (MusicConductor.Instance != null)
+            {
+                source = MusicConductor.Instance.GetAnalysisSource();
+            }
+        }
+
         void Update()
         {
             // Fill spectrum
-            AudioListener.GetSpectrumData(spec, 0, window);
+            if (!source)
+            {
+                return;
+            }
+
+            source.GetSpectrumData(spec, 0, window);
             
             int bin = 0;
             for (int b = 0; b < bands.Length; b++)
@@ -38,12 +53,10 @@ namespace RaveSurvival
 
                 // shape → 0..1
                 float v = Mathf.Clamp01(maxv * gain);
-
                 // attack/release smoothing
                 float cur = smooth[b];
                 float rate = (v > cur ? attackHz : releaseHz) * Time.deltaTime;
                 smooth[b] = Mathf.Lerp(cur, v, Mathf.Clamp01(rate));
-
                 bands[b] = smooth[b];
             }
         }

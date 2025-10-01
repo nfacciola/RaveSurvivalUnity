@@ -33,7 +33,6 @@ namespace RaveSurvival
                 return;
             }
             float v = analyzer.GetBand(band);
-            print("band is " + v.ToString());
             _light.intensity = Mathf.Lerp(minIntensity, maxIntensity, v);
             if (colorByLevel != null)
             {
