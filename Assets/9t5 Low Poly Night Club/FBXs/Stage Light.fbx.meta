@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: 78acdde4b03efbc4892afc9c64cdf612
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Stage Light
+    100002: //RootNode
+    100004: Swivel
+    400000: Stage Light
+    400002: //RootNode
+    400004: Swivel
+    2100000: Stage Light 1
+    2100002: Stage Light 2
+    2100004: Stage Light 3
+    2100006: Stage Light 5
+    2100008: Stage Light 4
+    2300000: Stage Light
+    2300002: //RootNode
+    2300004: Swivel
+    3300000: Stage Light
+    3300002: //RootNode
+    3300004: Swivel
+    4300000: Holder
+    4300002: Swivel
+    4300004: Stage Light
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stage Light 1
+    second: {fileID: 2100000, guid: 2d9d1702f12f4e949bd8c9451accff67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stage Light 2
+    second: {fileID: 2100000, guid: 596fb1bcbcf76bc4bb43dd95e587f85f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stage Light 3
+    second: {fileID: 2100000, guid: eebaa19b91b53614d88d77f71faabc18, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stage Light 4
+    second: {fileID: 2100000, guid: ed1b2cde037f85142b0dd788de65eb57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stage Light 5
+    second: {fileID: 2100000, guid: c7a608cef146ec94cbb67cef8e3ae123, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165385
+  packageName: 9t5 Low Poly Nightclub
+  packageVersion: 1.0
+  assetPath: Assets/9t5 Low Poly Night Club/FBXs/Stage Light.fbx
+  uploadId: 359102

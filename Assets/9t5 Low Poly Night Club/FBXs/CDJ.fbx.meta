@@ -1,0 +1,191 @@
+fileFormatVersion: 2
+guid: 20f395246b8b89f47b0ef277d178f66c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Tempo Dial
+    100004: Track Fade Dial
+    100006: Track Select Dial
+    100008: Turn Table
+    400000: //RootNode
+    400002: Tempo Dial
+    400004: Track Fade Dial
+    400006: Track Select Dial
+    400008: Turn Table
+    2100000: CDJ 1
+    2100002: CDJ 3
+    2100004: CDJ 2
+    2100006: CDJ 4
+    2100008: CDJ 5
+    2100010: CDJ 6
+    2100012: CDJ 7
+    2100014: CDJ 8
+    2100016: CDJ 9
+    2100018: CDJ 10
+    2100020: CDJ 11
+    2100022: CDJ 12
+    2300000: //RootNode
+    2300002: Tempo Dial
+    2300004: Track Fade Dial
+    2300006: Track Select Dial
+    2300008: Turn Table
+    3300000: //RootNode
+    3300002: Tempo Dial
+    3300004: Track Fade Dial
+    3300006: Track Select Dial
+    3300008: Turn Table
+    4300000: CDJ
+    4300002: Track Fade Dial
+    4300004: Track Select Dial
+    4300006: Tempo Dial
+    4300008: Turn Table
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 1
+    second: {fileID: 2100000, guid: 0e3811b7eed77ee4eb2d072bc202360e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 10
+    second: {fileID: 2100000, guid: 652026c860621fc4e8e3cb0126cc18dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 11
+    second: {fileID: 2100000, guid: 2233a0a70f84ca04f8f2fe9a97b672f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 12
+    second: {fileID: 2100000, guid: 59946e225c95c6647a1cdf5c271ab088, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 2
+    second: {fileID: 2100000, guid: 38b037efe8baa814bbf5b1fe9758a9af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 3
+    second: {fileID: 2100000, guid: a6ee3b1d494e3f148afeb78df5a49039, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 4
+    second: {fileID: 2100000, guid: 85d2685f72c26de43bbecd34293b3ac1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 5
+    second: {fileID: 2100000, guid: f391975f771711b40887c966e60d8108, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 6
+    second: {fileID: 2100000, guid: 7626cae925da7724e859b18ef913a8e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 7
+    second: {fileID: 2100000, guid: e881d2e2d58ab38419692b3b54507bf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 8
+    second: {fileID: 2100000, guid: fbfc4ab331503794496c3309141cbe24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CDJ 9
+    second: {fileID: 2100000, guid: 1d1be7eeaa6e77d40aea1b880157ac04, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165385
+  packageName: 9t5 Low Poly Nightclub
+  packageVersion: 1.0
+  assetPath: Assets/9t5 Low Poly Night Club/FBXs/CDJ.fbx
+  uploadId: 359102
