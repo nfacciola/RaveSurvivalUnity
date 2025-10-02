@@ -77,7 +77,7 @@ namespace RaveSurvival
 
         public IEnumerator SpawnEnemies()
         {
-            yield return new WaitForSeconds(10.0f);
+            yield return new WaitForSeconds(5.0f);
             foreach (Spawn spawnPoint in enemySpawnPoints)
             {
                 yield return new WaitForSeconds(2.0f);
